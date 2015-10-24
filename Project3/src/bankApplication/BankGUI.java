@@ -90,18 +90,6 @@ public class BankGUI extends JFrame {
 	private JPanel createTable() {
 
 		JPanel tables = new JPanel();
-		
-		/*ArrayList<Account> accounts = new ArrayList<Account>();
-		accounts = bank.getAccounts();
-		
-		for(int i = 0; i < accounts.size(); i++){
-			for(int j = 0; j < columnNames.length; j++){
-				
-				//data[i][j] =
-				
-			}
-			
-		}*/
 
 		table = new JTable(data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -115,7 +103,6 @@ public class BankGUI extends JFrame {
 
 		JMenuBar menuBar;
 		JMenu file, account, sort;
-		// JMenuItem menuItem;
 
 		// Create the menu bar.
 		menuBar = new JMenuBar();
@@ -128,11 +115,7 @@ public class BankGUI extends JFrame {
 		file.getAccessibleContext().
 			setAccessibleDescription("Save, Load, Quit");
 		menuBar.add(file);
-		/*
-		 * //a group of JMenuItems for(int i = 0; i < fileLabels.length; i++){
-		 * menuItem = new JMenuItem(fileLabels[i]); file.add(menuItem); if(i % 2
-		 * == 1) file.addSeparator(); }
-		 */
+
 
 		binaryLoad = new JMenuItem("Load from Binary...");
 		binaryLoad.getAccessibleContext().
