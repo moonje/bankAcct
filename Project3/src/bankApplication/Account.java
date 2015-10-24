@@ -145,4 +145,13 @@ public abstract class Account implements Serializable {
 	 * @return string with account information 
 	 ******************************************************************/
 	public abstract String toString();
+	
+	/*******************************************************************
+	 * Formats a gregorian calendar as a string  
+	 * 
+	 * @return string with date
+	 ******************************************************************/
+	public String calendarToString(GregorianCalendar greg){
+		return date.format(greg.getTime());
+	}
 }

@@ -44,6 +44,8 @@ public class BankGUI extends JFrame {
 	private JTextArea interest = new JTextArea();
 	private JTextArea minimum = new JTextArea();
 	
+	JTable table; 
+	
 	public static void main(String[] args) {
 		BankGUI gui = new BankGUI();
 	}
@@ -101,7 +103,7 @@ public class BankGUI extends JFrame {
 			
 		}*/
 
-		JTable table = new JTable(data, columnNames);
+		table = new JTable(data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 		tables.add(scrollPane);
@@ -123,7 +125,8 @@ public class BankGUI extends JFrame {
 		// Build the first menu.
 		file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
-		file.getAccessibleContext().setAccessibleDescription("Save, Load, Quit");
+		file.getAccessibleContext().
+			setAccessibleDescription("Save, Load, Quit");
 		menuBar.add(file);
 		/*
 		 * //a group of JMenuItems for(int i = 0; i < fileLabels.length; i++){
@@ -132,90 +135,106 @@ public class BankGUI extends JFrame {
 		 */
 
 		binaryLoad = new JMenuItem("Load from Binary...");
-		binaryLoad.getAccessibleContext().setAccessibleDescription("Load from a binary file");
+		binaryLoad.getAccessibleContext().
+			setAccessibleDescription("Load from a binary file");
 		binaryLoad.addActionListener(listen);
 		file.add(binaryLoad);
 
 		binarySave = new JMenuItem("Save to Binary...");
-		binarySave.getAccessibleContext().setAccessibleDescription("Save to a binary file");
+		binarySave.getAccessibleContext().
+			setAccessibleDescription("Save to a binary file");
 		binarySave.addActionListener(listen);
 		file.add(binarySave);
 
 		file.addSeparator();
 
 		textLoad = new JMenuItem("Load from Text...");
-		textLoad.getAccessibleContext().setAccessibleDescription("Load a binary file");
+		textLoad.getAccessibleContext().
+			setAccessibleDescription("Load a binary file");
 		textLoad.addActionListener(listen);
 		file.add(textLoad);
 
 		textSave = new JMenuItem("Save to Text...");
-		textSave.getAccessibleContext().setAccessibleDescription("Save to a binary file");
+		textSave.getAccessibleContext().
+			setAccessibleDescription("Save to a binary file");
 		textSave.addActionListener(listen);
 		file.add(textSave);
 
 		file.addSeparator();
 
 		xmlLoad = new JMenuItem("Load from XML...");
-		xmlLoad.getAccessibleContext().setAccessibleDescription("Load a binary file");
+		xmlLoad.getAccessibleContext().
+			setAccessibleDescription("Load a binary file");
 		xmlLoad.addActionListener(listen);
 		file.add(xmlLoad);
 
 		xmlSave = new JMenuItem("Save to XML...");
-		xmlSave.getAccessibleContext().setAccessibleDescription("Save to a binary file");
+		xmlSave.getAccessibleContext().
+			setAccessibleDescription("Save to a binary file");
 		xmlSave.addActionListener(listen);
 		file.add(xmlSave);
 
 		file.addSeparator();
 
 		quit = new JMenuItem("Quit");
-		quit.getAccessibleContext().setAccessibleDescription("Quit the program");
+		quit.getAccessibleContext().
+			setAccessibleDescription("Quit the program");
 		quit.addActionListener(listen);
 		file.add(quit);
 
 		
 		account = new JMenu("Account");
 		account.setMnemonic(KeyEvent.VK_A);
-		account.getAccessibleContext().setAccessibleDescription("Account Options");
+		account.getAccessibleContext().
+			setAccessibleDescription("Account Options");
 		menuBar.add(account);
 		
 		checking = new JMenuItem("New Checking Account");
-		checking.getAccessibleContext().setAccessibleDescription("Create a New Checking Account");
+		checking.getAccessibleContext().
+			setAccessibleDescription("Create a New Checking Account");
 		checking.addActionListener(listen);
 		account.add(checking);
 		
 		savings = new JMenuItem("New Savings Account");
-		savings.getAccessibleContext().setAccessibleDescription("Create a New Savings Account");
+		savings.getAccessibleContext().
+			setAccessibleDescription("Create a New Savings Account");
 		savings.addActionListener(listen);
 		account.add(savings);
 		
 		update = new JMenuItem("Update Account");
-		update.getAccessibleContext().setAccessibleDescription("Update account");
+		update.getAccessibleContext().
+			setAccessibleDescription("Update account");
 		update.addActionListener(listen);
 		account.add(update);
 		
 		delete = new JMenuItem("Delete Account");
-		delete.getAccessibleContext().setAccessibleDescription("Delete account");
+		delete.getAccessibleContext().
+			setAccessibleDescription("Delete account");
 		delete.addActionListener(listen);
 		account.add(delete);
 		
 		
 		sort = new JMenu("Sort");
 		sort.setMnemonic(KeyEvent.VK_S);
-		sort.getAccessibleContext().setAccessibleDescription("Sort by various criteria");
+		sort.getAccessibleContext().
+			setAccessibleDescription("Sort by various criteria");
 		menuBar.add(sort);
 
 		numberSort = new JMenuItem("By Account Number");
-		numberSort.getAccessibleContext().setAccessibleDescription("Sort by Account Number");
+		numberSort.getAccessibleContext().
+			setAccessibleDescription("Sort by Account Number");
 		numberSort.addActionListener(listen);
 		sort.add(numberSort);
 
 		nameSort = new JMenuItem("By Account Owner");
-		nameSort.getAccessibleContext().setAccessibleDescription("Sort by Account Owner");
+		nameSort.getAccessibleContext().
+			setAccessibleDescription("Sort by Account Owner");
 		nameSort.addActionListener(listen);
 		sort.add(nameSort);
 
 		dateSort = new JMenuItem("By Date Opened");
-		dateSort.getAccessibleContext().setAccessibleDescription("Sort by Date Opened");
+		dateSort.getAccessibleContext().
+			setAccessibleDescription("Sort by Date Opened");
 		dateSort.addActionListener(listen);
 		sort.add(dateSort);
 
@@ -287,49 +306,74 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == savings) {
 				
-				int option = JOptionPane.showConfirmDialog(null, savingsMessage, 
-						"Create a New Savings Account", JOptionPane.OK_CANCEL_OPTION);
-				
-				try{
-				
-					if (option == JOptionPane.OK_OPTION)
-					{
-						/*savings(Integer.parseInt(accNum.getText()), 
-							accOwn.getText(), date, Double.parseDouble(accBalance.getText()), 
-							Double.parseDouble(minimum.getText()), Double.parseDouble(interest.getText()));*/
-					
-						/*bank.newSavingsAccount(Integer.parseInt(accNum.getText()), 
-								accOwn.getText(), date, Double.parseDouble(accBalance.getText()), 
-								Double.parseDouble(minimum.getText()), Double.parseDouble(interest.getText()));*/
-
-
-					}
-				}
-				catch(IllegalArgumentException err){
-					
-					JOptionPane.showMessageDialog(null, "Input values are not valid.");
-					
-				}
-				
+				int option = JOptionPane.showConfirmDialog(null, 
+						savingsMessage, 
+						"Create a New Savings Account", 
+						JOptionPane.OK_CANCEL_OPTION);
+	
+				if (option == JOptionPane.OK_OPTION){
+						newSavings();
+				}	
 			}
 
 			if (e.getSource() == update) {
+				int index = table.getSelectedRow();
+				Account account = bank.getAccountAt(index);
 				
-				
-				
-				//bank.updateAccount(acct, accNum, accOwn, date, accBalance, fee, minimum, interest);
-				
+				if (account instanceof CheckingAccount){
+					accNum.setText("" + account.getAccountNumber());
+					accOwn.setText(account.getAccountOwner());
+					date.setText(account.calendarToString(account.
+							getDateOpened()));
+					accBalance.setText("" +account.getAccountBalance());
+					fee.setText("" + ((CheckingAccount) account).
+							getMonthlyFee());
+					
+					int option = JOptionPane.showConfirmDialog(null, 
+							checkingMessage, 
+							"Create a New Checking Account", 
+							JOptionPane.OK_CANCEL_OPTION);
+					
+					if (option == JOptionPane.OK_OPTION){
+						newChecking();
+						bank.deleteAccount(index);
+					}
+					
+				} else if (account instanceof SavingsAccount){
+					accNum.setText("" + account.getAccountNumber());
+					accOwn.setText(account.getAccountOwner());
+					date.setText(account.calendarToString(account.
+							getDateOpened()));
+					accBalance.setText("" +account.getAccountBalance());
+					
+					minimum.setText("" + (((SavingsAccount) account).
+							getMinBalance()));
+					interest.setText("" + (((SavingsAccount) account).
+							getInterestRate()));
+					
+					int option = JOptionPane.showConfirmDialog(null, 
+							savingsMessage, 
+							"Create a New Savings Account", 
+							JOptionPane.OK_CANCEL_OPTION);
+					
+					if (option == JOptionPane.OK_OPTION){
+						newSavings();
+						bank.deleteAccount(index);
+					}	
+				}
 			}
 			
 			if (e.getSource() == delete) {
-
-				//bank.deleteAccount(account);
-				
+				int index = table.getSelectedRow();
+				bank.deleteAccount(index);
 			}
 		}
 	}
 	
 	/******************************************************************
+	 * Checks the user's input for correct formatting and inputs and 
+	 * creates a new checking account if all user inputs are 
+	 * correctly formatted and with acceptable inputs. 
 	 * 
 	 * @throws IllegalArgumentException if incorrect user input
 	 *****************************************************************/
@@ -373,11 +417,55 @@ public class BankGUI extends JFrame {
 			JOptionPane.showMessageDialog(null, "Error in input!");
 		}
 	}
+	
+	/******************************************************************
+	 * Checks the user's input for correct formatting and inputs and 
+	 * creates a new savings account if all user inputs are 
+	 * correctly formatted and with acceptable inputs. 
+	 * 
+	 * @throws IllegalArgumentException if incorrect user input
+	 *****************************************************************/
+	public void newSavings() throws IllegalArgumentException{
+		
+		try {
+			//Gets the account number
+			int acctNum = Integer.parseInt(accNum.getText());
+			
+			//Gets the date opened 
+			String dateString = date.getText();
+			String [] part = dateString.split("/"); 
+			
+			int month; 
+			int day; 
+			int year; 
+			GregorianCalendar greg; 
+			
+			month = Integer.parseInt(part[0]);
+			day = Integer.parseInt(part[1]); 
+			year = Integer.parseInt(part[2]);
+			greg = new GregorianCalendar(year, month - 1, day);
+			
+			//Gets the balance 
+			double accBal = Double.parseDouble(accBalance.getText());
+			
+			//Gets the minimum balance
+			double minBal = Double.parseDouble(minimum.getText());
+			
+			//Gets the interest rate 
+			double intRate = Double.parseDouble(interest.getText());
+			
+			//Creates a new account
+			SavingsAccount snew = new SavingsAccount(acctNum, 
+					accOwn.getText(), greg, accBal, minBal, intRate);
+			
+			//Sends the account to the model 
+			bank.newAccount(snew);
+			
+			//Print statement used for checking
+			//System.out.println(cnew.toString());
+			
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(null, "Error in input!");
+		}
+	}
 }
-
-
-
-
-
-
-

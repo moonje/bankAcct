@@ -39,20 +39,6 @@ public class BankModel extends AbstractTableModel {
 		
 		fireTableDataChanged();
 	}
-
-	/******************************************************************
-	 * Changes the properties for the given Account object.
-	 * 
-	 * @param index, the index of the account being updated
-	 * @param acct, the updated account 
-	 *****************************************************************/
-	public void updateAccount(int index, Account acct) {
-		//removes the old version of the account
-		deleteAccount(index);
-		
-		//creates an account with the updated information 
-		newAccount(acct);
-	}
 	
 	/******************************************************************
 	 * Removes the given account from the ArrayList.
@@ -106,6 +92,15 @@ public class BankModel extends AbstractTableModel {
 		}
 		
 		return null;
+	}
+	
+	/******************************************************************
+	 * Returns an account in the arraylist
+	 * 
+	 * @param index, the index of the account
+	 *****************************************************************/
+	public Account getAccountAt(int index){
+		return acts.get(index);
 	}
 	
 	
