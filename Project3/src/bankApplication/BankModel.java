@@ -37,7 +37,7 @@ public class BankModel extends AbstractTableModel {
 	public void newAccount(Account acct){
 		acts.add(acct);
 		
-		fireTableRowsInserted(0, acts.size());
+		fireTableDataChanged();
 	}
 
 	/******************************************************************
@@ -62,7 +62,7 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void deleteAccount(int account) {
 		acts.remove(account);
-		fireTableRowsDeleted(0, acts.size());
+		fireTableDataChanged();
 	}
 
 	/******************************************************************
@@ -92,24 +92,22 @@ public class BankModel extends AbstractTableModel {
 	 * @param
 	 *****************************************************************/
 	@Override
-	public Object getValueAt(int arg0, int arg1) {
-		// TODO Auto-generated method stub
+	public Object getValueAt(int column, int row) {
+		
+		switch(column){
+		case 0: 
+			return acts.get(row).getAccountNumber();
+		case 1:
+			return acts.get(row).getDateOpened();
+		case 2:
+			return acts.get(row).getAccountOwner();
+		case 3:
+			return acts.get(row).getAccountBalance();
+		}
+		
 		return null;
 	}
 	
-	/******************************************************************
-	 * Returns the account at the specified position 
-	 * 
-	 * @return account at specified position 
-	 * @param index, the index of the account in the arraylist
-	 *****************************************************************/
-//	public Account getAccountAt(int index){
-//		try {
-//			returns accts(index);
-//		} catch (IndexOutOfBounds e){
-//
-//		}
-//	}
 	
 	//add method to find
 	
