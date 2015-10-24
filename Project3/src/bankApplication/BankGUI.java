@@ -18,7 +18,8 @@ public class BankGUI extends JFrame {
 	private Object[][] data = {{"test","test","test","test"},
 			{"test","test","test","test"},{"test","test","test","test"}};
 
-	private String[] columnNames = { "Number", "Date Opened", "Account Owner", "Current Balance" };
+	private String[] columnNames = { "Number", "Date Opened", 
+			"Account Owner", "Current Balance" };
 
 	private JMenuItem textLoad;
 	private JMenuItem textSave;
