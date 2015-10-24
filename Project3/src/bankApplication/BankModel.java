@@ -36,7 +36,8 @@ public class BankModel extends AbstractTableModel {
 	 ******************************************************************/
 	public void newAccount(Account acct){
 		acts.add(acct);
-		//fireIntervalAdded();
+		
+		fireTableRowsInserted(0, acts.size());
 	}
 
 	/******************************************************************
@@ -47,7 +48,7 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void updateAccount(int index, Account acct) {
 		//removes the old version of the account
-		acts.remove(index);
+		deleteAccount(index);
 		
 		//creates an account with the updated information 
 		newAccount(acct);

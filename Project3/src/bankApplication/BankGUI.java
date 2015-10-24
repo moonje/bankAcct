@@ -44,6 +44,10 @@ public class BankGUI extends JFrame {
 	private JTextArea interest = new JTextArea();
 	private JTextArea minimum = new JTextArea();
 	
+	public static void main(String[] args) {
+		BankGUI gui = new BankGUI();
+	}
+	
 	private Object[] checkingMessage = 
 		{"Account Number: ", accNum, "Account Owner: ",
 				accOwn, "Date Opened: ", date,
@@ -274,19 +278,8 @@ public class BankGUI extends JFrame {
 				
 				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
-				if (option == JOptionPane.OK_OPTION)
-				{
-					
-					
-					/*checking(Integer.parseInt(accNum.getText()), 
-							accOwn.getText(), date, Double.parseDouble(accBalance.getText()), 
-							Double.parseDouble(fee.getText()));*/
-					
-					/*bank.newCheckingAccount(Integer.parseInt(accNum.getText()), 
-							accOwn.getText(), date, Double.parseDouble(accBalance.getText()), 
-							Double.parseDouble(fee.getText()));*/
-
-
+				if (option == JOptionPane.OK_OPTION){
+					newChecking();
 				}
 				
 				
@@ -321,7 +314,9 @@ public class BankGUI extends JFrame {
 			}
 
 			if (e.getSource() == update) {
-
+				
+				
+				
 				//bank.updateAccount(acct, accNum, accOwn, date, accBalance, fee, minimum, interest);
 				
 			}
@@ -334,109 +329,55 @@ public class BankGUI extends JFrame {
 		}
 	}
 	
-	/*******************************************************************
-	 * First, checks user inputs; then, if all inputs in correct format, 
-	 * creates a new Checking Account through the Bank Model. 
+	/******************************************************************
 	 * 
-	 * @throws IllegalArgumentException if incorrect input 
-	 ******************************************************************/
-	private void checking(int number, String owner, 
-			GregorianCalendar greg, double balance, double fee) 
-					throws IllegalArgumentException{
- 
-		double acctFee;
+	 * @throws IllegalArgumentException if incorrect user input
+	 *****************************************************************/
+	public void newChecking() throws IllegalArgumentException{
 		
 		try {
-			//acctFee = Double.parseDouble(fee.getText());
-
-		} catch (RuntimeException e) {
-			throw new IllegalArgumentException();
-		}
-		
-		//bank.newCheckingAccount(number, owner, 
-		//	greg, balance, acctFee);
-
-	}
-	
-	/*******************************************************************
-	 * First, checks user inputs; then, if all inputs in correct format, 
-	 * creates a new Savings Account through the Bank Model. 
-	 * 
-	 * @throws IllegalArgumentException if incorrect input 
-	 ******************************************************************/
-	private void savings(int number, String owner, 
-			GregorianCalendar greg, double balance, double minimum, double interest) 
-					throws IllegalArgumentException{
-
-		double acctInterest; 
-		double min = 0; 
-		
-		try {
-			//acctInterest = Double.parseDouble(interest.getText());
-			//min = Double.parseDouble(minimum.getText());
-
-		} catch (RuntimeException e) {
-			throw new IllegalArgumentException();
-		}
-
-		if (min > balance) {
-			throw new IllegalArgumentException();
-		}
-		
-		//bank.newSavingsAccount(number, owner, greg, balance, min, 
-		//		acctInterest);
-	}
-	
-	/*******************************************************************
-	 * Checks user inputs and calls the appropriate method to check 
-	 * pieces unique to the certain type of account. 
-	 * 0 indicates a checking account and 1 indicates a savings account.
-	 * 
-	 * @param type, number representing the type of account 
-	 * @throws IllegalArgumentException if incorrect input 
-	 ******************************************************************/
-	private void newAccount(int type) throws IllegalArgumentException{
-
-		String accountOwner = accOwn.getText();
-
-		String dateString = date.getText();
-		String [] part = dateString.split("/"); 
-		
-		int accountNumber; 
-		int month; 
-		int day; 
-		int year; 
-		GregorianCalendar greg; 
-		double balance; 
-
-		try {
-			accountNumber = Integer.parseInt(accNum.getText());	
+			//Gets the account number
+			int acctNum = Integer.parseInt(accNum.getText());
+			
+			//Gets the date opened 
+			String dateString = date.getText();
+			String [] part = dateString.split("/"); 
+			
+			int month; 
+			int day; 
+			int year; 
+			GregorianCalendar greg; 
 			
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			greg = new GregorianCalendar(year, month, day);
-
-			balance = Double.parseDouble(accBalance.getText());
-
-		} catch (RuntimeException e) {
-			throw new IllegalArgumentException();
+			greg = new GregorianCalendar(year, month - 1, day);
+			
+			//Gets the balance 
+			double accBal = Double.parseDouble(accBalance.getText());
+			
+			//Gets the monthly fee
+			double accFee = Double.parseDouble(fee.getText());
+			
+			//Creates a new account
+			CheckingAccount cnew = new CheckingAccount(acctNum, 
+					accOwn.getText(), greg, accBal, accFee);
+			
+			//Sends the account to the model 
+			bank.newAccount(cnew);
+			
+			//Print statement used for checking
+			//System.out.println(cnew.toString());
+			
+		} catch (Exception e){
+			JOptionPane.showMessageDialog(null, "Error in input!");
 		}
-		
-		/*if (type == 0){
-			checking(accountNumber, accountOwner, greg, balance);
-		} else if (type == 1){
-			savings(accountNumber, accountOwner, greg, balance);
-		}*/
 	}
-
-	public static void main(String[] args) {
-		
-		BankGUI gui = new BankGUI();
-
-	}
-
 }
+
+
+
+
 
 
 
