@@ -10,6 +10,14 @@ import java.util.GregorianCalendar;
 
 import javax.swing.*;
 
+/***********************************************************************
+ * 
+ * 
+ * @author Jennifer Moon
+ * @author Kelsey Brennan
+ * @author Molly Alger
+ * @version 10/25/2015
+ **********************************************************************/
 public class BankGUI extends JFrame {
 
 	/** An instance of BankModel for the GUI **/
