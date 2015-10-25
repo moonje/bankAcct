@@ -22,6 +22,16 @@ public class SavingsAccount extends Account {
 	private double interestRate;
 	
 	/******************************************************************
+	 * Constructor to create a "blank" savings account
+	 *****************************************************************/
+	public SavingsAccount(){
+		
+		super(0, null, null, 0);
+		minBalance = 0;
+		interestRate = 0;
+	}
+	
+	/******************************************************************
 	 * Constructor used to instantiate a new savings account with an
 	 * account number, the owner name, the date it was opened, the 
 	 * initial balance, the minimum balance, and the interest rate.

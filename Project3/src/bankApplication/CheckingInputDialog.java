@@ -36,14 +36,18 @@ public class CheckingInputDialog extends JFrame{
 	
 	private JButton create;
 	private JButton cancel;
+	
+	private CheckingAccount check;
 
 	
-	public CheckingInputDialog(){
+	public CheckingInputDialog(CheckingAccount c){
 		
 		super("Create A Checking Account");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setSize(400,300);
+		
+		check = c;
 		
 		JPanel p = new JPanel();
 		p.setLayout(new BorderLayout());
@@ -140,11 +144,13 @@ public class CheckingInputDialog extends JFrame{
 			
 			if(e.getSource() == create){
 				
+				newChecking();
+				
 			}
 			
 			if(e.getSource() == cancel){
 				
-				
+				dispose();
 			}
 		}
 	}
@@ -198,7 +204,7 @@ public class CheckingInputDialog extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		CheckingInputDialog c = new CheckingInputDialog();
+		//CheckingInputDialog c = new CheckingInputDialog();
 	}
 	
 }

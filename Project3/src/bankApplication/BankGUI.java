@@ -301,31 +301,31 @@ public class BankGUI extends JFrame {
 			
 			if (e.getSource() == checking) {
 				
-				//CheckingAccount check = new CheckingAccount();
-				//CheckingInputDialog c = new CheckingInputDialog(check);
+				CheckingAccount check = new CheckingAccount();
+				CheckingInputDialog c = new CheckingInputDialog(check);
 				
-				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
+				/*int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION){
 					newChecking();
-				}
+				}*/
 				
 				
 			}
 
 			if (e.getSource() == savings) {
 				
-				//SavingsAccount save = new SavingsAccount();
-				//SavingsInputDialog s = new SavingsInputDialog(save);
+				SavingsAccount save = new SavingsAccount();
+				SavingsInputDialog s = new SavingsInputDialog(save);
 				
-				int option = JOptionPane.showConfirmDialog(null, 
+				/*int option = JOptionPane.showConfirmDialog(null, 
 						savingsMessage, 
 						"Create a New Savings Account", 
 						JOptionPane.OK_CANCEL_OPTION);
 	
 				if (option == JOptionPane.OK_OPTION){
 						newSavings();
-				}	
+				}*/	
 			}
 
 			if (e.getSource() == update) {

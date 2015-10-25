@@ -18,6 +18,16 @@ public class CheckingAccount extends Account {
 	/** Monthly account fee */
 	private double monthlyFee;
 
+	
+	/******************************************************************
+	 * Constructor to create a "blank" checking account
+	 *****************************************************************/
+	public CheckingAccount(){
+		
+		super(0, null, null, 0);
+		monthlyFee = 0;
+	}
+	
 	/******************************************************************
 	 * Constructor used to instantiate a new checking account with an
 	 * account number, the owner name, the date it was opened, the 

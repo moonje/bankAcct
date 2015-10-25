@@ -39,12 +39,16 @@ public class SavingsInputDialog extends JFrame{
 	private JButton create;
 	private JButton cancel;
 	
-	public SavingsInputDialog(){
+	private SavingsAccount save;
+	
+	public SavingsInputDialog(SavingsAccount s){
 		
 		super("Create A Savings Account");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setSize(400,300);
+		
+		save = s;
 		
 		JPanel p = new JPanel();
 		p.setLayout(new BorderLayout());
@@ -150,11 +154,14 @@ private JPanel createLabels(){
 		
 			if(e.getSource() == create){
 			
+				newSavings();
+				
 			}
 		
 			if(e.getSource() == cancel){
 			
-			
+				dispose();
+				
 			}
 		}
 	}
@@ -211,7 +218,7 @@ public void newSavings() throws IllegalArgumentException{
 }
 
 	public static void main(String[] args) {
-		SavingsInputDialog s = new SavingsInputDialog();
+		//SavingsInputDialog s = new SavingsInputDialog();
 	}
 	
 }
