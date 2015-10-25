@@ -15,14 +15,6 @@ public class BankGUI extends JFrame {
 	/** An instance of BankModel for the GUI **/
 	private BankModel bank;
 
-	/** Array of data to display **/
-	private Object[][] data = {{"test","test","test","test"},
-			{"test","test","test","test"},{"test","test","test","test"}};
-
-	/** Array of column names for the JTable **/
-	private String[] columnNames = { "Number", "Date Opened", 
-			"Account Owner", "Current Balance" };
-
 	/** JMenuItems for the top menu bar **/
 	private JMenuItem textLoad;
 	private JMenuItem textSave;
@@ -105,8 +97,10 @@ public class BankGUI extends JFrame {
 	private JPanel createTable() {
 
 		JPanel tables = new JPanel();
-
-		table = new JTable(data, columnNames);
+		
+		
+		
+		table = new JTable(bank);
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
 		tables.add(scrollPane);
@@ -301,31 +295,31 @@ public class BankGUI extends JFrame {
 			
 			if (e.getSource() == checking) {
 				
-				CheckingAccount check = new CheckingAccount();
-				CheckingInputDialog c = new CheckingInputDialog(check);
+				//CheckingAccount check = new CheckingAccount();
+				//CheckingInputDialog c = new CheckingInputDialog(check);
 				
-				/*int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
+				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION){
 					newChecking();
-				}*/
+				}
 				
 				
 			}
 
 			if (e.getSource() == savings) {
 				
-				SavingsAccount save = new SavingsAccount();
-				SavingsInputDialog s = new SavingsInputDialog(save);
+				//SavingsAccount save = new SavingsAccount();
+				//SavingsInputDialog s = new SavingsInputDialog(save);
 				
-				/*int option = JOptionPane.showConfirmDialog(null, 
+				int option = JOptionPane.showConfirmDialog(null, 
 						savingsMessage, 
 						"Create a New Savings Account", 
 						JOptionPane.OK_CANCEL_OPTION);
 	
 				if (option == JOptionPane.OK_OPTION){
 						newSavings();
-				}*/	
+				}	
 			}
 
 			if (e.getSource() == update) {

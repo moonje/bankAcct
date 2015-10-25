@@ -193,7 +193,7 @@ public class CheckingInputDialog extends JFrame{
 					accOwn.getText(), greg, accBal, accFee);
 			
 			//Sends the account to the model 
-			//bank.newAccount(cnew);
+			//bank.add(cnew);
 			
 			//Print statement used for checking
 			//System.out.println(cnew.toString());
@@ -206,5 +206,4 @@ public class CheckingInputDialog extends JFrame{
 	public static void main(String[] args) {
 		//CheckingInputDialog c = new CheckingInputDialog();
 	}
-	
 }
