@@ -12,9 +12,6 @@ import java.text.NumberFormat;
  *********************************************************************/
 public class SavingsAccount extends Account {
 	
-	/* ??? */
-	private static final long serialVersionUID = 1L;
-	
 	/** Minimum balance required for a new savings account */
 	private double minBalance; 
 	

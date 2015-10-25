@@ -12,9 +12,6 @@ import java.text.NumberFormat;
  *********************************************************************/
 public class CheckingAccount extends Account {
 
-	/** ??? **/
-	private static final long serialVersionUID = 1L;
-
 	/** Monthly account fee */
 	private double monthlyFee;
 
