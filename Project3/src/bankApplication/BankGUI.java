@@ -12,15 +12,18 @@ import javax.swing.*;
 
 public class BankGUI extends JFrame {
 
+	/** An instance of BankModel for the GUI **/
 	private BankModel bank;
-	private Account acc;
 
+	/** Array of data to display **/
 	private Object[][] data = {{"test","test","test","test"},
 			{"test","test","test","test"},{"test","test","test","test"}};
 
+	/** Array of column names for the JTable **/
 	private String[] columnNames = { "Number", "Date Opened", 
 			"Account Owner", "Current Balance" };
 
+	/** JMenuItems for the top menu bar **/
 	private JMenuItem textLoad;
 	private JMenuItem textSave;
 	private JMenuItem binaryLoad;
@@ -36,6 +39,7 @@ public class BankGUI extends JFrame {
 	private JMenuItem update;
 	private JMenuItem delete;
 	
+	/** JTextAreas for gathering user input **/
 	private JTextArea accNum = new JTextArea();
 	private JTextArea accOwn = new JTextArea();
 	private JTextArea date = new JTextArea();
@@ -44,12 +48,10 @@ public class BankGUI extends JFrame {
 	private JTextArea interest = new JTextArea();
 	private JTextArea minimum = new JTextArea();
 	
+	/** The table displayed by the GUI **/
 	JTable table; 
 	
-	public static void main(String[] args) {
-		BankGUI gui = new BankGUI();
-	}
-	
+	/** Array of objects for dialog box **/
 	private Object[] checkingMessage = 
 		{"Account Number: ", accNum, "Account Owner: ",
 				accOwn, "Date Opened: ", date,
@@ -57,6 +59,7 @@ public class BankGUI extends JFrame {
 				"Monthly Fee: ", fee
 		};
 	
+	/** Array of objects for dialog box **/
 	private Object[] savingsMessage = 
 		{"Account Number: ", accNum, "Account Owner: ",
 				accOwn, "Date Opened: ", date,
@@ -65,11 +68,18 @@ public class BankGUI extends JFrame {
 				"Minimum Balance: ", minimum
 		};
 
+	/******************************************************************
+	 * Constructor creates the JFrame and the elements displayed 
+	 * within the JFrame
+	 *****************************************************************/
 	public BankGUI() {
 		
 		super("Bank Account");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		//call the method to create the menu bar
 		setJMenuBar(createMenus());
+		
 		pack();
 		setSize(500,500);
 		
@@ -78,6 +88,7 @@ public class BankGUI extends JFrame {
 		JPanel j = new JPanel();
 		j.setLayout(new BorderLayout());
 
+		//call the method to create the table
 		j.add(createTable(), BorderLayout.NORTH);
 
 		add(j);
@@ -86,7 +97,11 @@ public class BankGUI extends JFrame {
 
 	}
 	
-
+	/******************************************************************
+	 * Creates the JTable that displays user data
+	 * 
+	 * @return tables the table created to display account info
+	 *****************************************************************/
 	private JPanel createTable() {
 
 		JPanel tables = new JPanel();
@@ -99,24 +114,30 @@ public class BankGUI extends JFrame {
 		return tables;
 	}
 
+	/******************************************************************
+	 * Creates the menu bar for selecting files, creating and 
+	 * updating accounts, and sorting the accounts
+	 * 
+	 * @return menuBar the top menubar in the JFrame
+	 *****************************************************************/
 	public JMenuBar createMenus() {
 
 		JMenuBar menuBar;
 		JMenu file, account, sort;
 
-		// Create the menu bar.
+		// Create the menu bar
 		menuBar = new JMenuBar();
 
 		ButtonListener listen = new ButtonListener();
 
-		// Build the first menu.
+		// Build the first menu
 		file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		file.getAccessibleContext().
 			setAccessibleDescription("Save, Load, Quit");
 		menuBar.add(file);
 
-
+		//create the menu items for File
 		binaryLoad = new JMenuItem("Load from Binary...");
 		binaryLoad.getAccessibleContext().
 			setAccessibleDescription("Load from a binary file");
@@ -165,13 +186,14 @@ public class BankGUI extends JFrame {
 		quit.addActionListener(listen);
 		file.add(quit);
 
-		
+		//Build the second menu
 		account = new JMenu("Account");
 		account.setMnemonic(KeyEvent.VK_A);
 		account.getAccessibleContext().
 			setAccessibleDescription("Account Options");
 		menuBar.add(account);
 		
+		//create the menu items for Account
 		checking = new JMenuItem("New Checking Account");
 		checking.getAccessibleContext().
 			setAccessibleDescription("Create a New Checking Account");
@@ -196,13 +218,14 @@ public class BankGUI extends JFrame {
 		delete.addActionListener(listen);
 		account.add(delete);
 		
-		
+		//Build the third menu
 		sort = new JMenu("Sort");
 		sort.setMnemonic(KeyEvent.VK_S);
 		sort.getAccessibleContext().
 			setAccessibleDescription("Sort by various criteria");
 		menuBar.add(sort);
 
+		//create the menu items for Sort
 		numberSort = new JMenuItem("By Account Number");
 		numberSort.getAccessibleContext().
 			setAccessibleDescription("Sort by Account Number");
@@ -221,15 +244,15 @@ public class BankGUI extends JFrame {
 		dateSort.addActionListener(listen);
 		sort.add(dateSort);
 
-		/*
-		 * for(int i = 0; i < sorting.length; i++){ menuItem = new
-		 * JMenuItem(sorting[i]); sort.add(menuItem); }
-		 */
-
+		//Returns the built menu bar
 		return menuBar;
 
 	}
 
+	/******************************************************************
+	 * A buttonlistener to determine what actions to take when
+	 * a user selects items from the drop down menus
+	 *****************************************************************/
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -278,6 +301,9 @@ public class BankGUI extends JFrame {
 			
 			if (e.getSource() == checking) {
 				
+				//CheckingAccount check = new CheckingAccount();
+				//CheckingInputDialog c = new CheckingInputDialog(check);
+				
 				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
 				if (option == JOptionPane.OK_OPTION){
@@ -288,6 +314,9 @@ public class BankGUI extends JFrame {
 			}
 
 			if (e.getSource() == savings) {
+				
+				//SavingsAccount save = new SavingsAccount();
+				//SavingsInputDialog s = new SavingsInputDialog(save);
 				
 				int option = JOptionPane.showConfirmDialog(null, 
 						savingsMessage, 
@@ -450,5 +479,14 @@ public class BankGUI extends JFrame {
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Error in input!");
 		}
+	}
+	
+	/******************************************************************
+	 * Main method to create the GUI
+	 * 
+	 * @param args array of Strings 
+	 *****************************************************************/
+	public static void main(String[] args) {
+		BankGUI gui = new BankGUI();
 	}
 }
