@@ -39,14 +39,14 @@ public class BankGUI extends JFrame {
 	private JMenuItem update;
 	private JMenuItem delete;
 
-	/** JTextAreas for gathering user input **/
-	private JTextArea accNum = new JTextArea();
-	private JTextArea accOwn = new JTextArea();
-	private JTextArea date = new JTextArea();
-	private JTextArea accBalance = new JTextArea();
-	private JTextArea fee = new JTextArea();
-	private JTextArea interest = new JTextArea();
-	private JTextArea minimum = new JTextArea();
+	/** JTextFields for gathering user input **/
+	private JTextField accNum = new JTextField();
+	private JTextField accOwn = new JTextField();
+	private JTextField date = new JTextField();
+	private JTextField accBalance = new JTextField();
+	private JTextField fee = new JTextField();
+	private JTextField interest = new JTextField();
+	private JTextField minimum = new JTextField();
 
 	/** The table displayed by the GUI **/
 	JTable table; 
