@@ -16,21 +16,21 @@ import javax.swing.table.AbstractTableModel;
  * @version 10/24/2015
  *********************************************************************/
 public class BankModel extends AbstractTableModel {
-	
+
 	/** ArrayList of Accounts **/
 	private ArrayList<Account> acts; 
-	
+
 	/** Names of the Columns **/
 	private String[] colNames = {"Account Number", "Account Owner", 
 			"Date Opened", "Account Balance"};		
-	
+
 	/*******************************************************************
 	 * Constructor
 	 ******************************************************************/
 	public BankModel(){
 		acts = new ArrayList<Account>();
 	}
-	
+
 	/*******************************************************************
 	 * Creates a new account
 	 * 
@@ -38,10 +38,10 @@ public class BankModel extends AbstractTableModel {
 	 ******************************************************************/
 	public void newAccount(Account acct){
 		acts.add(acct);
-		
+
 		this.fireTableDataChanged();
 	}
-	
+
 	/******************************************************************
 	 * Removes the given account from the ArrayList.
 	 * 
@@ -81,30 +81,30 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	@Override
 	public Object getValueAt(int row, int column) {
-		
+
 		//Making a change so it will push through. 
 		//Should be row and then column. 
-		
+
 		switch(column){
-		
+
 		case 0: 
 			return "" + acts.get(row).getAccountNumber();
-			
+
 		case 1:
 			return acts.get(row).calendarToString(acts.get(row).
 					getDateOpened());
-			
+
 		case 2:
 			return acts.get(row).getAccountOwner();
-			
+
 		case 3:
 			NumberFormat fmt = NumberFormat.getCurrencyInstance();
 			return fmt.format(acts.get(row).getAccountBalance());
 		}
-		
+
 		return null;
 	}
-	
+
 	/******************************************************************
 	 * Returns an account in the arraylist
 	 * 
@@ -113,7 +113,7 @@ public class BankModel extends AbstractTableModel {
 	public Account getAccountAt(int index){
 		return acts.get(index);
 	}
-	
+
 	/******************************************************************
 	 *
 	 *@return String of the column name
@@ -125,10 +125,38 @@ public class BankModel extends AbstractTableModel {
 				"Account Owner", "Current Balance" };
 		return columnNames[column];
 	}
-	
+
 	//add method to find
+
+	/**
+	 * 
+	 */
+	public void sortByAccountNumber() {
+		if (acts.size() > 1) {
+			Collections.sort(acts, new AccountNumberComparator);
+			fireTableRowsUpdated(0, acts.size()-1);
+		}
+	}
 	
-	//add methods to sort accounts on required fields
+	/**
+	 * 
+	 */
+	public void sortByAccountName() {
+		if (acts.size() > 1) {
+			Collections.sort(acts, new AccountNameComparator);
+			fireTableRowsUpdated(0, acts.size()-1);
+		}
+	}
 	
+	/**
+	 * 
+	 */
+	public void sortByAccountBalance() {
+		if (acts.size() > 1) {
+			Collections.sort(acts, new AccountBalanceComparator);
+			fireTableRowsUpdated(0, acts.size()-1);
+		}
+	}
+
 	//add methods to load/save accounts from/to a binary file	
 }
