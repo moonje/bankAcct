@@ -176,11 +176,13 @@ public class CheckingInputDialog extends JFrame{
 			int day; 
 			int year; 
 			GregorianCalendar greg; 
-			
+						
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			greg = new GregorianCalendar(year, month - 1, day);
+			greg = new GregorianCalendar();
+			greg.setLenient(false);
+			greg.set(year, month - 1, day);
 			
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());

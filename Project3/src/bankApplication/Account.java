@@ -34,7 +34,7 @@ public abstract class Account implements Serializable {
 	
 	/** Date Formatting **/
 	protected SimpleDateFormat date = new SimpleDateFormat
-			("dd/MM/yyyy");
+			("MM/dd/yyyy");
 
 	/*******************************************************************
 	 * Constructor used to instantiate the account number, owner, 
@@ -47,11 +47,11 @@ public abstract class Account implements Serializable {
 	 ******************************************************************/
 	public Account(int number, String owner, 
 			GregorianCalendar dateOpened, double balance){
-
+		
 		this.number = number; 
 		this.owner = owner;
 		this.dateOpened = dateOpened; 
-		this.balance = balance; 	
+		this.balance = balance; 
 	}
 
 	/*******************************************************************
@@ -147,7 +147,7 @@ public abstract class Account implements Serializable {
 	public abstract String toString();
 	
 	/*******************************************************************
-	 * Formats a gregorian calendar as a string  
+	 * Formats a Gregorian calendar as a string  
 	 * 
 	 * @return string with date
 	 ******************************************************************/
