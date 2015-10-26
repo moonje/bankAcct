@@ -1,5 +1,7 @@
 package bankApplication;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.swing.*;
@@ -11,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Kelsey Brennan
  * @author Jennifer Moon
  * @author Molly Alger
- * @version 10/17/2015
+ * @version 10/24/2015
  *********************************************************************/
 public class BankModel extends AbstractTableModel {
 	
@@ -37,7 +39,7 @@ public class BankModel extends AbstractTableModel {
 	public void newAccount(Account acct){
 		acts.add(acct);
 		
-		fireTableDataChanged();
+		this.fireTableDataChanged();
 	}
 	
 	/******************************************************************
@@ -48,7 +50,7 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void deleteAccount(int account) {
 		acts.remove(account);
-		fireTableDataChanged();
+		this.fireTableDataChanged();
 	}
 
 	/******************************************************************
@@ -74,21 +76,30 @@ public class BankModel extends AbstractTableModel {
 	/******************************************************************
 	 * Returns the object at a specified position 
 	 * 
-	 * @param
-	 * @param
+	 * @param the column the object is at
+	 * @param the row the column is at 
 	 *****************************************************************/
 	@Override
-	public Object getValueAt(int column, int row) {
+	public Object getValueAt(int row, int column) {
+		
+		//Making a change so it will push through. 
+		//Should be row and then column. 
 		
 		switch(column){
+		
 		case 0: 
-			return acts.get(row).getAccountNumber();
+			return "" + acts.get(row).getAccountNumber();
+			
 		case 1:
-			return acts.get(row).getDateOpened();
+			return acts.get(row).calendarToString(acts.get(row).
+					getDateOpened());
+			
 		case 2:
 			return acts.get(row).getAccountOwner();
+			
 		case 3:
-			return acts.get(row).getAccountBalance();
+			NumberFormat fmt = NumberFormat.getCurrencyInstance();
+			return fmt.format(acts.get(row).getAccountBalance());
 		}
 		
 		return null;
@@ -103,6 +114,17 @@ public class BankModel extends AbstractTableModel {
 		return acts.get(index);
 	}
 	
+	/******************************************************************
+	 *
+	 *@return String of the column name
+	 *@param column the desired column
+	 *****************************************************************/
+	@Override
+	public String getColumnName(int column){
+		String[] columnNames = { "Number", "Date Opened", 
+				"Account Owner", "Current Balance" };
+		return columnNames[column];
+	}
 	
 	//add method to find
 	
@@ -110,4 +132,3 @@ public class BankModel extends AbstractTableModel {
 	
 	//add methods to load/save accounts from/to a binary file	
 }
-
