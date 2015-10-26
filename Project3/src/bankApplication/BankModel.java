@@ -131,32 +131,33 @@ public class BankModel extends AbstractTableModel {
 
 	//add method to find
 
-	/**
-	 * 
-	 */
+	/******************************************************************
+	 * Sorts the accounts in increasing order by the account number.
+	 *****************************************************************/
 	public void sortByAccountNumber() {
 		if (acts.size() > 1) {
-			Collections.sort(acts, new AccountNumberComparator);
+			Collections.sort(acts, new AccountNumberComparator());
 			fireTableRowsUpdated(0, acts.size()-1);
 		}
 	}
 	
-	/**
-	 * 
-	 */
+	/******************************************************************
+	 * Sorts the accounts in alphabetical order by the account owner's
+	 * name.
+	 *****************************************************************/
 	public void sortByAccountName() {
 		if (acts.size() > 1) {
-			Collections.sort(acts, new AccountNameComparator);
+			Collections.sort(acts, new AccountOwnerComparator());
 			fireTableRowsUpdated(0, acts.size()-1);
 		}
 	}
 	
-	/**
-	 * 
-	 */
-	public void sortByAccountBalance() {
+	/******************************************************************
+	 * Sorts the accounts by the date the account was opened.
+	 *****************************************************************/
+	public void sortByAccountDateOpened() {
 		if (acts.size() > 1) {
-			Collections.sort(acts, new AccountBalanceComparator);
+			Collections.sort(acts, new AccountDateOpenedComparator());
 			fireTableRowsUpdated(0, acts.size()-1);
 		}
 	}

@@ -277,18 +277,22 @@ public class BankGUI extends JFrame {
 				System.exit(0);
 			}
 
+			//sort by account number
 			if (e.getSource() == numberSort) {
-
+				bank.sortByAccountNumber();
 			}
 
+			//sort by account owner's name
 			if (e.getSource() == nameSort) {
-
+				bank.sortByAccountName();
 			}
 
+			//sort by date account was opened
 			if (e.getSource() == dateSort) {
-
+				bank.sortByAccountDateOpened();
 			}
 
+			//create a new checking account
 			if (e.getSource() == checking) {
 
 				//CheckingAccount check = new CheckingAccount();
@@ -304,6 +308,7 @@ public class BankGUI extends JFrame {
 
 			}
 
+			//create a new savings account
 			if (e.getSource() == savings) {
 
 				SavingsAccount save = new SavingsAccount();
@@ -319,6 +324,7 @@ public class BankGUI extends JFrame {
 				}	
 			}
 
+			//update an existing account
 			if (e.getSource() == update) {
 				int index = table.getSelectedRow();
 				if (index >= 0) {
@@ -368,6 +374,7 @@ public class BankGUI extends JFrame {
 				}
 			}
 
+			//delete an account
 			if (e.getSource() == delete) {
 				int index = table.getSelectedRow();
 				bank.deleteAccount(index);
