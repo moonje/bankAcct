@@ -39,14 +39,14 @@ public class BankGUI extends JFrame {
 	private JMenuItem update;
 	private JMenuItem delete;
 
-	/** JTextAreas for gathering user input **/
-	private JTextArea accNum = new JTextArea();
-	private JTextArea accOwn = new JTextArea();
-	private JTextArea date = new JTextArea();
-	private JTextArea accBalance = new JTextArea();
-	private JTextArea fee = new JTextArea();
-	private JTextArea interest = new JTextArea();
-	private JTextArea minimum = new JTextArea();
+	/** JTextFields for gathering user input **/
+	private JTextField accNum = new JTextField();
+	private JTextField accOwn = new JTextField();
+	private JTextField date = new JTextField();
+	private JTextField accBalance = new JTextField();
+	private JTextField fee = new JTextField();
+	private JTextField interest = new JTextField();
+	private JTextField minimum = new JTextField();
 
 	/** The table displayed by the GUI **/
 	JTable table; 
@@ -273,14 +273,6 @@ public class BankGUI extends JFrame {
 
 			}
 
-			if (e.getSource() == xmlLoad) {
-
-			}
-
-			if (e.getSource() == xmlSave) {
-
-			}
-
 			if (e.getSource() == quit) {
 				System.exit(0);
 			}
@@ -300,7 +292,8 @@ public class BankGUI extends JFrame {
 			if (e.getSource() == checking) {
 
 				//CheckingAccount check = new CheckingAccount();
-				//CheckingInputDialog c = new CheckingInputDialog(check);
+				//CheckingInputDialog c = new CheckingInputDialog(this, check);
+				//bank.addAccount();
 
 				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
@@ -328,7 +321,7 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == update) {
 				int index = table.getSelectedRow();
-				if (index > 0) {
+				if (index >= 0) {
 					Account account = bank.getAccountAt(index);
 
 					if (account instanceof CheckingAccount){
