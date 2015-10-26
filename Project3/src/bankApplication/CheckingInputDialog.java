@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 
-public class CheckingInputDialog extends JFrame{
+public class CheckingInputDialog extends JDialog implements ActionListener{
 
 	/** JTextFields for gathering user input **/
 	private JTextField accNum = new JTextField();
@@ -40,9 +41,9 @@ public class CheckingInputDialog extends JFrame{
 	private CheckingAccount check;
 
 	
-	public CheckingInputDialog(CheckingAccount c){
+	public CheckingInputDialog(JFrame parent, CheckingAccount c){
 		
-		super("Create A Checking Account");
+		super(parent, true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setSize(400,300);
@@ -207,5 +208,21 @@ public class CheckingInputDialog extends JFrame{
 
 	public static void main(String[] args) {
 		//CheckingInputDialog c = new CheckingInputDialog();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		/*if(e.getSource() == create){
+			
+			newChecking();
+			
+		}
+		
+		if(e.getSource() == cancel){
+			
+			dispose();
+		}*/
+		
 	}
 }

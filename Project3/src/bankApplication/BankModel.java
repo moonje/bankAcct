@@ -1,5 +1,8 @@
 package bankApplication;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -131,4 +134,20 @@ public class BankModel extends AbstractTableModel {
 	//add methods to sort accounts on required fields
 	
 	//add methods to load/save accounts from/to a binary file	
+	public void saveDatabase(String filename){
+		
+		try{
+			FileOutputStream fo = new FileOutputStream(filename);
+			ObjectOutputStream os = new ObjectOutputStream(fo);
+			os.writeObject(acts);
+			os.close();
+		}
+		catch(IOException e){
+			
+			
+		}
+		
+		//load: fireIntervalAdded(this 0, listAuto.size()-1);
+		
+	}
 }

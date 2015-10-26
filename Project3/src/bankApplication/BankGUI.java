@@ -292,7 +292,8 @@ public class BankGUI extends JFrame {
 			if (e.getSource() == checking) {
 
 				//CheckingAccount check = new CheckingAccount();
-				//CheckingInputDialog c = new CheckingInputDialog(check);
+				//CheckingInputDialog c = new CheckingInputDialog(this, check);
+				//bank.addAccount();
 
 				int option = JOptionPane.showConfirmDialog(null, checkingMessage, 
 						"Create a New Checking Account", JOptionPane.OK_CANCEL_OPTION);
