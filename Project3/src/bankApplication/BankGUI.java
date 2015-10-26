@@ -273,14 +273,6 @@ public class BankGUI extends JFrame {
 
 			}
 
-			if (e.getSource() == xmlLoad) {
-
-			}
-
-			if (e.getSource() == xmlSave) {
-
-			}
-
 			if (e.getSource() == quit) {
 				System.exit(0);
 			}
@@ -328,7 +320,7 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == update) {
 				int index = table.getSelectedRow();
-				if (index > 0) {
+				if (index >= 0) {
 					Account account = bank.getAccountAt(index);
 
 					if (account instanceof CheckingAccount){
