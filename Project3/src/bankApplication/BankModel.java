@@ -1,7 +1,9 @@
 package bankApplication;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -129,7 +131,6 @@ public class BankModel extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	//add method to find
 
 	/******************************************************************
 	 * Sorts the accounts in increasing order by the account number.
@@ -162,8 +163,13 @@ public class BankModel extends AbstractTableModel {
 		}
 	}
 
-	//add methods to load/save accounts from/to a binary file	
-	public void saveDatabase(String filename){
+	/******************************************************************
+	 * Saves the array list of accounts to a serialized binary file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			binary file
+	 *****************************************************************/
+	public void saveBinary(String filename){
 		
 		try{
 			FileOutputStream fo = new FileOutputStream(filename);
@@ -174,9 +180,77 @@ public class BankModel extends AbstractTableModel {
 		catch(IOException e){
 			
 			
+			
 		}
 		
-		//load: fireIntervalAdded(this 0, listAuto.size()-1);
+	}
+	
+	/******************************************************************
+	 * Loads the array list of accounts from a serialized binary file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			binary file
+	 *****************************************************************/
+	public void loadBinary(String filename){
+		
+		try{
+			FileInputStream fi = new FileInputStream(filename);
+			ObjectInputStream is = new ObjectInputStream(fi);
+			//acts = is.readObject();
+			fireTableRowsUpdated(0, acts.size()-1);
+			is.close();
+		}
+		catch(IOException e){
+			
+			
+		}
+			
+	}
+	
+	/******************************************************************
+	 * Saves the array list of accounts to a text file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			text file
+	 *****************************************************************/
+	public void saveText(String filename){
+		
+		
+		
+	}
+	
+	/******************************************************************
+	 * Loads the array list of accounts from a text file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			text file
+	 *****************************************************************/
+	public void loadText(String filename){
+		
+		
+	}
+	
+	/******************************************************************
+	 * Saves the array list of accounts to an XML file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			xml file
+	 *****************************************************************/
+	public void saveXML(String filename){
+		
+		
+		
+	}
+	
+	/******************************************************************
+	 * Loads the array list of accounts from an xml file.
+	 * 
+	 * @param filename a String containing the file name of the 
+	 * 			xml file
+	 *****************************************************************/
+	public void loadXML(String filename){
+		
+		
 		
 	}
 }

@@ -259,18 +259,38 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == textLoad) {
 
+				//bank.loadText(filename);
+				
 			}
 
 			if (e.getSource() == textSave) {
 
+				//bank.saveText(filename);
+				
 			}
 
 			if (e.getSource() == binaryLoad) {
 
+				//bank.loadBinary(filename);
+				
 			}
 
 			if (e.getSource() == binarySave) {
 
+				//bank.saveBinary(filename);
+				
+			}
+			
+			if(e.getSource() == xmlLoad){
+				
+				//bank.loadXML(filename);
+				
+			}
+			
+			if(e.getSource() == xmlSave){
+				
+				//bank.saveXML(filename);
+				
 			}
 
 			if (e.getSource() == quit) {
