@@ -32,7 +32,7 @@ public class BankModel extends AbstractTableModel {
 
 	/** Names of the Columns **/
 	private String[] colNames = {"Account Number", "Account Owner", 
-			"Date Opened", "Account Balance"};		
+			"Date Opened", "Account Balance", "Account Info"};	
 
 	/*******************************************************************
 	 * Constructor
@@ -110,6 +110,25 @@ public class BankModel extends AbstractTableModel {
 		case 3:
 			NumberFormat fmt = NumberFormat.getCurrencyInstance();
 			return fmt.format(acts.get(row).getAccountBalance());
+			
+		case 4:
+			NumberFormat f = NumberFormat.getCurrencyInstance();
+			NumberFormat n = NumberFormat.getPercentInstance();
+			if(acts.get(row) instanceof CheckingAccount){
+				
+				return "Monthly Fee: " + 
+						f.format(((CheckingAccount) acts.get(row)).
+						getMonthlyFee());
+				
+			}
+			else{
+				return "Interest: " + n.format(
+						(((SavingsAccount)acts.get(row)).
+						getInterestRate())/100) +
+						"  Minimum Balance: " + 
+						f.format(((SavingsAccount)acts.get(row)).
+						getMinBalance());
+			}
 		}
 
 		return null;
@@ -132,7 +151,7 @@ public class BankModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column){
 		String[] columnNames = { "Number", "Date Opened", 
-				"Account Owner", "Current Balance" };
+				"Account Owner", "Current Balance", "Account Info" };
 		return columnNames[column];
 	}
 
