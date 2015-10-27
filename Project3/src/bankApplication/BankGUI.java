@@ -311,8 +311,8 @@ public class BankGUI extends JFrame {
 			//create a new savings account
 			if (e.getSource() == savings) {
 
-				SavingsAccount save = new SavingsAccount();
-				SavingsInputDialog s = new SavingsInputDialog(save);
+				//SavingsAccount save = new SavingsAccount();
+				//SavingsInputDialog s = new SavingsInputDialog(save);
 
 				int option = JOptionPane.showConfirmDialog(null, 
 						savingsMessage, 
@@ -460,8 +460,12 @@ public class BankGUI extends JFrame {
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
 
+			double minBal = 0;
+			
 			//Gets the minimum balance
-			double minBal = Double.parseDouble(minimum.getText());
+			if(Double.parseDouble(minimum.getText()) <= accBal){
+				minBal = Double.parseDouble(minimum.getText());
+			}
 
 			//Gets the interest rate 
 			double intRate = Double.parseDouble(interest.getText());
