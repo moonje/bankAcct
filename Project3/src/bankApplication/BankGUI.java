@@ -2,6 +2,7 @@ package bankApplication;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -81,7 +82,7 @@ public class BankGUI extends JFrame {
 		setJMenuBar(createMenus());
 
 		pack();
-		setSize(500,500);
+		setSize(675,625);
 
 		bank = new BankModel();
 
@@ -109,6 +110,8 @@ public class BankGUI extends JFrame {
 		table = new JTable(bank);
 		JScrollPane scrollPane = new JScrollPane(table);
 		table.setFillsViewportHeight(true);
+		table.setPreferredScrollableViewportSize(new Dimension(650,600));
+		table.getColumnModel().getColumn(4).setPreferredWidth(250);
 		tables.add(scrollPane);
 
 		return tables;
