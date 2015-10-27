@@ -228,47 +228,49 @@ public class BankModel extends AbstractTableModel {
 		try {
 			
 			//open and read file
-			out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		//print to file
-		for (int i = 0; i < acts.size(); i++){
+			out = new PrintWriter(new BufferedWriter(new FileWriter
+					(filename)));
 			
-			Account account = acts.get(i);
-			
-			if (account instanceof CheckingAccount){
+			//print to file
+			for (int i = 0; i < acts.size() - 1; i++){
 				
-				CheckingAccount cacct = (CheckingAccount) account; 
+				Account account = acts.get(i);
 				
-				out.print("Checking, " + 
-						cacct.getAccountNumber() + ", " + 
-						cacct.getAccountOwner() + ", " + 
-						cacct.calendarToString(cacct.getDateOpened()) + 
-						", "  + cacct.getAccountBalance() + ", " +
-						cacct.getMonthlyFee() + "\n");
+				if (account instanceof CheckingAccount){
+					
+					CheckingAccount cacct = (CheckingAccount) account; 
+					
+					out.print("Checking," + 
+							cacct.getAccountNumber() + "," + 
+							cacct.getAccountOwner() + "," + 
+							cacct.calendarToString(cacct.
+									getDateOpened()) + 
+							","  + cacct.getAccountBalance() + "," +
+							cacct.getMonthlyFee() + "\n");
+					
+				} else if (account instanceof SavingsAccount){
+					
+					SavingsAccount sacct = (SavingsAccount) account; 
+					
+					out.print("Savings," + 
+							sacct.getAccountNumber() + "," + 
+							sacct.getAccountOwner() + "," + 
+							sacct.calendarToString(sacct.
+									getDateOpened()) + 
+							","  + sacct.getAccountBalance() + "," +
+							sacct.getMinBalance() + "," + 
+							sacct.getInterestRate() + "\n");
+				}
 				
-			} else if (account instanceof SavingsAccount){
-				
-				SavingsAccount sacct = (SavingsAccount) account; 
-				
-				out.print("Savings, " + 
-						sacct.getAccountNumber() + ", " + 
-						sacct.getAccountOwner() + ", " + 
-						sacct.calendarToString(sacct.getDateOpened()) + 
-						", "  + sacct.getAccountBalance() + ", " +
-						sacct.getMinBalance() + ", " + 
-						sacct.getInterestRate() + "\n");
 			}
 			
-		}
-		
-		//close file
-		out.close();
-
-		
-		
+		} catch (IOException e) {
+			e.printStackTrace();
+			
+		} finally {
+			//close file
+			out.close();
+		}	
 	}
 	
 	/******************************************************************
@@ -300,7 +302,6 @@ public class BankModel extends AbstractTableModel {
 		catch (IOException error) {
 			System.out.println("Oops!  Something went wrong.");
 		}
-		
 	}
 	
 	/******************************************************************
