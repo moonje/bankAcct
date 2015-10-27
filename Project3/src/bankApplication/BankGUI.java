@@ -430,7 +430,9 @@ public class BankGUI extends JFrame {
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			greg = new GregorianCalendar(year, month - 1, day);
+			greg = new GregorianCalendar();
+			greg.setLenient(false);
+			greg.set(year, month - 1, day);
 
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
@@ -478,16 +480,32 @@ public class BankGUI extends JFrame {
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			greg = new GregorianCalendar(year, month - 1, day);
+			greg = new GregorianCalendar();
+			greg.setLenient(false);
+			greg.set(year, month - 1, day);
 
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
 
-			double minBal = 0;
+			double minBal = 1;
 			
-			//Gets the minimum balance
-			if(Double.parseDouble(minimum.getText()) <= accBal){
-				minBal = Double.parseDouble(minimum.getText());
+			//Gets the minimum balance and makes sure it's not
+			//greater than the current balance
+			try{
+				if(Double.parseDouble(minimum.getText()) <= accBal){
+					minBal = Double.parseDouble(minimum.getText());
+				}
+				else{
+				
+					throw new IllegalArgumentException();
+				
+				}
+			}
+			catch(IllegalArgumentException e){
+				
+				JOptionPane.showMessageDialog(null, "Error in input!"
+						+ " Minimum defaulted to $1.");
+				
 			}
 
 			//Gets the interest rate 
