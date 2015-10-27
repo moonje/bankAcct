@@ -1,10 +1,15 @@
 package bankApplication;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -179,7 +184,7 @@ public class BankModel extends AbstractTableModel {
 		}
 		catch(IOException e){
 			
-			
+			e.printStackTrace();
 			
 		}
 		
@@ -196,13 +201,17 @@ public class BankModel extends AbstractTableModel {
 		try{
 			FileInputStream fi = new FileInputStream(filename);
 			ObjectInputStream is = new ObjectInputStream(fi);
-			//acts = is.readObject();
+			acts = (ArrayList<Account>)is.readObject();
 			fireTableRowsUpdated(0, acts.size()-1);
 			is.close();
 		}
 		catch(IOException e){
 			
+			e.printStackTrace();
 			
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
 		}
 			
 	}
@@ -215,6 +224,21 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void saveText(String filename){
 		
+		PrintWriter out = null;
+		try {
+			
+			//open and read file
+			out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		//print to file
+		out.println(this.toString());
+		
+		//close file
+		out.close();
+
 		
 		
 	}
@@ -227,6 +251,27 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void loadText(String filename){
 		
+		try {
+			// open the data file
+			Scanner fileReader = new Scanner(new File(filename));
+
+			//CountDownTimer timer = new CountDownTimer(fileReader.nextLine());
+			
+
+			//close file
+			fileReader.close();
+
+		}
+
+		// could not find file
+		catch (FileNotFoundException error) {
+			System.out.println("File not found ");
+		}
+
+		// problem reading the file
+		catch (IOException error) {
+			System.out.println("Oops!  Something went wrong.");
+		}
 		
 	}
 	
