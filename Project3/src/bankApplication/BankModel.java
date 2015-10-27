@@ -234,7 +234,35 @@ public class BankModel extends AbstractTableModel {
 		}
 
 		//print to file
-		out.println(this.toString());
+		for (int i = 0; i < acts.size(); i++){
+			
+			Account account = acts.get(i);
+			
+			if (account instanceof CheckingAccount){
+				
+				CheckingAccount cacct = (CheckingAccount) account; 
+				
+				out.print("Checking, " + 
+						cacct.getAccountNumber() + ", " + 
+						cacct.getAccountOwner() + ", " + 
+						cacct.calendarToString(cacct.getDateOpened()) + 
+						", "  + cacct.getAccountBalance() + ", " +
+						cacct.getMonthlyFee() + "\n");
+				
+			} else if (account instanceof SavingsAccount){
+				
+				SavingsAccount sacct = (SavingsAccount) account; 
+				
+				out.print("Savings, " + 
+						sacct.getAccountNumber() + ", " + 
+						sacct.getAccountOwner() + ", " + 
+						sacct.calendarToString(sacct.getDateOpened()) + 
+						", "  + sacct.getAccountBalance() + ", " +
+						sacct.getMinBalance() + ", " + 
+						sacct.getInterestRate() + "\n");
+			}
+			
+		}
 		
 		//close file
 		out.close();
