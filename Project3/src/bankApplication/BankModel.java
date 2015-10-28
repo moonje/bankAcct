@@ -251,7 +251,7 @@ public class BankModel extends AbstractTableModel {
 					(filename)));
 			
 			//print to file
-			for (int i = 0; i < acts.size() - 1; i++){
+			for (int i = 0; i < acts.size(); i++){
 				
 				Account account = acts.get(i);
 				
@@ -303,6 +303,8 @@ public class BankModel extends AbstractTableModel {
 		try {
 			// open the data file
 			Scanner fileReader = new Scanner(new File(filename));
+			
+			acts.clear();
 
 			//While there is a next line
             while (fileReader.hasNextLine()) {

@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.swing.*;
@@ -262,13 +264,13 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == textLoad) {
 
-				//bank.loadText(filename);
+				bank.loadText("bankApplication Data");
 				
 			}
 
 			if (e.getSource() == textSave) {
 
-				//bank.saveText(filename);
+				bank.saveText("bankApplication Data");
 				
 			}
 
@@ -427,12 +429,29 @@ public class BankGUI extends JFrame {
 			int year; 
 			GregorianCalendar greg; 
 
+			
+			//set date variables
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
+			
+			//create calendar and set lenient mode
 			greg = new GregorianCalendar();
 			greg.setLenient(false);
-			greg.set(year, month - 1, day);
+			
+			//check if values entered are valid
+			try {
+				greg.set(year, month - 1, day);
+				greg.getTime();
+			}
+			//throw an error and set default date if entered date
+			//is invalid
+			catch(IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(this, "Invalid date!"
+						+ " Today's date will be used instead.");
+				Date today = Calendar.getInstance().getTime();
+				greg.setTime(today);
+			}
 
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
@@ -477,12 +496,28 @@ public class BankGUI extends JFrame {
 			int year; 
 			GregorianCalendar greg; 
 
+			//set date variables
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
+			
+			//create calendar and set lenient mode
 			greg = new GregorianCalendar();
 			greg.setLenient(false);
-			greg.set(year, month - 1, day);
+			
+			//check if values entered are valid
+			try {
+				greg.set(year, month - 1, day);
+				greg.getTime();
+			}
+			//throw an error and set default date if entered date
+			//is invalid
+			catch(IllegalArgumentException e) {
+				JOptionPane.showMessageDialog(this, "Invalid date!"
+						+ " Today's date will be used instead.");
+				Date today = Calendar.getInstance().getTime();
+				greg.setTime(today);
+			}
 
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
