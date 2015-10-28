@@ -114,6 +114,7 @@ public class BankModel extends AbstractTableModel {
 		case 4:
 			NumberFormat f = NumberFormat.getCurrencyInstance();
 			NumberFormat n = NumberFormat.getPercentInstance();
+			f.setMinimumFractionDigits(2);
 			if(acts.get(row) instanceof CheckingAccount){
 				
 				return "Monthly Fee: " + 
