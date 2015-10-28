@@ -304,6 +304,7 @@ public class BankModel extends AbstractTableModel {
 			// open the data file
 			Scanner fileReader = new Scanner(new File(filename));
 
+			//While there is a next line
             while (fileReader.hasNextLine()) {
             	
             	String text = fileReader.nextLine();
