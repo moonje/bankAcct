@@ -206,7 +206,6 @@ public class BankModel extends AbstractTableModel {
 			e.printStackTrace();
 			
 		}
-		
 	}
 	
 	/******************************************************************
@@ -304,8 +303,61 @@ public class BankModel extends AbstractTableModel {
 			// open the data file
 			Scanner fileReader = new Scanner(new File(filename));
 
-			//CountDownTimer timer = new CountDownTimer(fileReader.nextLine());
-			
+            while (fileReader.hasNextLine()) {
+            	
+            	String text = fileReader.nextLine();
+            	
+    			String [] part = text.split(",");
+    			
+    			if (part[0].equals("Checking")){
+    				
+    				int accountNumber = Integer.parseInt(part[1]);
+    				
+    				//part[2] is the account owner 
+    				
+    				String [] date = part[3].split("/");
+    				int month = Integer.parseInt(date[0]);
+    				int day = Integer.parseInt(date[1]);
+    				int year = Integer.parseInt(date[2]);
+    				GregorianCalendar greg = new GregorianCalendar(year, 
+    						month - 1, day);
+    				
+    				double balance = Double.parseDouble(part[4]);
+    				
+    				double fee = Double.parseDouble(part[5]);
+    				
+    				CheckingAccount check = new CheckingAccount(
+    						accountNumber, part[2], greg, balance, fee);
+    						
+    				newAccount(check);
+    				
+    			} else if (part[0].equals("Savings")){
+    				
+  				int accountNumber = Integer.parseInt(part[1]);
+    				
+    				//part[2] is the account owner 
+    				
+    				String [] date = part[3].split("/");
+    				int month = Integer.parseInt(date[0]);
+    				int day = Integer.parseInt(date[1]);
+    				int year = Integer.parseInt(date[2]);
+    				GregorianCalendar greg = new GregorianCalendar(year, 
+    						month - 1, day);
+    				
+    				double balance = Double.parseDouble(part[4]);
+    				
+    				double minBal = Double.parseDouble(part[5]);
+    				
+    				double interest = Double.parseDouble(part[6]);
+    				
+    				SavingsAccount save = new SavingsAccount(
+    						accountNumber, part[2], greg, balance,
+    						minBal, interest);
+    				
+    				newAccount(save);
+    			}
+            	
+            }
 
 			//close file
 			fileReader.close();
