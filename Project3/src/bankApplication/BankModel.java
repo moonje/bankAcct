@@ -16,6 +16,10 @@ import java.util.*;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
 
 /**********************************************************************
  * Bank Model Description 
@@ -386,7 +390,12 @@ public class BankModel extends AbstractTableModel {
 	 * 			xml file
 	 *****************************************************************/
 	public void saveXML(String filename){
-		
+		try{
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+			StringBuilder sb = new StringBuilder();
+			sb.append("<?xml version=\"1.0\"?>\n");
+			sb.append("<accounts>\n");
+		}
 		
 		
 	}
@@ -399,7 +408,16 @@ public class BankModel extends AbstractTableModel {
 	 *****************************************************************/
 	public void loadXML(String filename){
 		
-		
+		try{
+			clear();
+			File file = new File(filename);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+			
+			//NodeList actLst = doc.getElementsByTagName();
+		}
 		
 	}
 }
