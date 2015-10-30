@@ -1,17 +1,7 @@
 package bankApplication;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
+import java.io.*;
+import java.text.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -27,7 +17,7 @@ import org.w3c.dom.Document;
  * @author Kelsey Brennan
  * @author Jennifer Moon
  * @author Molly Alger
- * @version 10/24/2015
+ * @version 10/30/2015
  *********************************************************************/
 public class BankModel extends AbstractTableModel {
 
@@ -409,7 +399,7 @@ public class BankModel extends AbstractTableModel {
 	public void loadXML(String filename){
 		
 		try{
-			clear();
+			acts.clear();
 			File file = new File(filename);
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();

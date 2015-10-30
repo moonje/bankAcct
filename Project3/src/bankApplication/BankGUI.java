@@ -19,7 +19,7 @@ import javax.swing.*;
  * @author Jennifer Moon
  * @author Kelsey Brennan
  * @author Molly Alger
- * @version 10/25/2015
+ * @version 10/30/2015
  **********************************************************************/
 public class BankGUI extends JFrame {
 
@@ -276,13 +276,13 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == binaryLoad) {
 
-				//bank.loadBinary(filename);
+				bank.loadBinary("bankApplication Data (Binary)");
 				
 			}
 
 			if (e.getSource() == binarySave) {
 
-				//bank.saveBinary(filename);
+				bank.saveBinary("bankApplication Data (Binary)");
 				
 			}
 			

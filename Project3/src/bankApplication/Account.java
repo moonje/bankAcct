@@ -10,11 +10,11 @@ import java.util.GregorianCalendar;
  * @author Jennifer Moon
  * @author Kelsey Brennan
  * @author Molly Alger
- * @version 10/19/2015
+ * @version 10/30/2015
  **********************************************************************/
 public abstract class Account implements Serializable {
 
-	/** ??? **/
+	/** Used for saving to binary **/
 	private static final long serialVersionUID = 1L;
 
 	/** Account Number **/

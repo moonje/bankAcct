@@ -4,20 +4,21 @@ import java.util.GregorianCalendar;
 import java.text.NumberFormat;
 
 /**********************************************************************
+ * Child class to Account used to make Checking Accounts
  * 
  * @author Kelsey Brennan
  * @author Jennifer Moon
  * @author Molly Alger
- * @version 10/19/2015
+ * @version 10/30/2015
  *********************************************************************/
 public class CheckingAccount extends Account {
 
-	/** Monthly account fee */
+	/** The Monthly Fee */
 	private double monthlyFee;
 
 	
 	/******************************************************************
-	 * Constructor to create a "blank" checking account
+	 * Default Constructor 
 	 *****************************************************************/
 	public CheckingAccount(){
 		

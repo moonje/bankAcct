@@ -4,11 +4,12 @@ import java.util.GregorianCalendar;
 import java.text.NumberFormat;
 
 /**********************************************************************
+ * Child class to Account used to create a Savings Account. 
  * 
  * @author Kelsey Brennan
  * @author Jennifer Moon
  * @author Molly Alger
- * @version 10/17/2015
+ * @version 10/30/2015
  *********************************************************************/
 public class SavingsAccount extends Account {
 	
@@ -19,7 +20,7 @@ public class SavingsAccount extends Account {
 	private double interestRate;
 	
 	/******************************************************************
-	 * Constructor to create a "blank" savings account
+	 * Default constructor 
 	 *****************************************************************/
 	public SavingsAccount(){
 		
