@@ -187,8 +187,9 @@ public class BankModel extends AbstractTableModel {
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			binary file
+	 * @throws IOException if unable to save file 
 	 *****************************************************************/
-	public void saveBinary(String filename){
+	public void saveBinary(String filename) throws IOException{
 		
 		try{
 			FileOutputStream fo = new FileOutputStream(filename);
@@ -197,9 +198,7 @@ public class BankModel extends AbstractTableModel {
 			os.close();
 		}
 		catch(IOException e){
-			
-			e.printStackTrace();
-			
+			throw new IOException(); 
 		}
 	}
 	
@@ -208,8 +207,9 @@ public class BankModel extends AbstractTableModel {
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			binary file
+	 * @throws Exception if unable to load the file 
 	 *****************************************************************/
-	public void loadBinary(String filename){
+	public void loadBinary(String filename) throws Exception{
 		
 		try{
 			FileInputStream fi = new FileInputStream(filename);
@@ -220,11 +220,11 @@ public class BankModel extends AbstractTableModel {
 		}
 		catch(IOException e){
 			
-			e.printStackTrace();
+			throw new IOException(); 
 			
 		} catch (ClassNotFoundException e) {
 			
-			e.printStackTrace();
+			throw new ClassNotFoundException();
 		}
 			
 	}
@@ -234,8 +234,9 @@ public class BankModel extends AbstractTableModel {
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			text file
+	 * @throws IOException if unable to save file 
 	 *****************************************************************/
-	public void saveText(String filename){
+	public void saveText(String filename) throws Exception{
 		
 		PrintWriter out = null;
 		try {
@@ -278,7 +279,7 @@ public class BankModel extends AbstractTableModel {
 			}
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new IOException(); 
 			
 		} finally {
 			//close file
@@ -291,8 +292,9 @@ public class BankModel extends AbstractTableModel {
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			text file
+	 * @throws Exception if unable to load the file 
 	 *****************************************************************/
-	public void loadText(String filename){
+	public void loadText(String filename) throws Exception{
 		
 		try {
 			// open the data file
@@ -354,22 +356,24 @@ public class BankModel extends AbstractTableModel {
     				
     				newAccount(save);
     			}
-            	
             }
 
 			//close file
 			fileReader.close();
-
 		}
 
 		// could not find file
 		catch (FileNotFoundException error) {
-			System.out.println("File not found ");
+			throw new FileNotFoundException();
 		}
 
 		// problem reading the file
 		catch (IOException error) {
-			System.out.println("Oops!  Something went wrong.");
+			throw new IOException();
+		}
+		
+		catch (Exception error){
+			throw new Exception();
 		}
 	}
 	

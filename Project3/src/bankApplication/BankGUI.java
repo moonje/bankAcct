@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -264,26 +266,104 @@ public class BankGUI extends JFrame {
 
 			if (e.getSource() == textLoad) {
 
-				bank.loadText("bankApplication Data");
-				
+		        //File Chooser to open in the current directory
+		        JFileChooser fc = new JFileChooser();
+		        File currentDir = new File(System.getProperty(
+		        		"user.dir"));
+		        fc.setCurrentDirectory(currentDir);
+
+		        // display the file choose
+		        int returnVal = fc.showOpenDialog(null);
+
+		        // did the user select a file?
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            String filename = fc.getSelectedFile().getName();
+
+		            //Use the provided filename to read customer data
+					try {
+						bank.loadText(filename);
+					} catch (Exception exception){
+						JOptionPane.showMessageDialog(null, 
+								"Unable to load file.\n" +
+								"Please confirm it is a text file.");
+					}
+		        }	
 			}
 
 			if (e.getSource() == textSave) {
 
-				bank.saveText("bankApplication Data");
-				
+				 //File Chooser to open in the current directory
+		        JFileChooser fc = new JFileChooser();
+		        File currentDir = new File(System.getProperty(
+		        		"user.dir"));
+		        fc.setCurrentDirectory(currentDir);
+
+		        // display the file choose
+		        int returnVal = fc.showSaveDialog(null);
+
+		        // did the user select a file?
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            String filename = fc.getSelectedFile().getName();
+
+		            //Use the provided filename to read customer data
+					try{
+						bank.saveText(filename);
+					} catch (Exception exception){
+						JOptionPane.showMessageDialog(null, 
+								"Unable to save file.");
+					}
+		        }
 			}
 
 			if (e.getSource() == binaryLoad) {
 
-				bank.loadBinary("bankApplication Data (Binary)");
-				
+		        //File Chooser to open in the current directory
+		        JFileChooser fc = new JFileChooser();
+		        File currentDir = new File(System.getProperty(
+		        		"user.dir"));
+		        fc.setCurrentDirectory(currentDir);
+
+		        // display the file choose
+		        int returnVal = fc.showOpenDialog(null);
+
+		        // did the user select a file?
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            String filename = fc.getSelectedFile().getName();
+
+		            //Use the provided filename to read customer data
+					try{
+						bank.loadBinary(filename);
+					} catch (Exception exception){
+						JOptionPane.showMessageDialog(null, 
+								"Unable to load file. \n" +
+								"Please confirm it is a binary file.");
+					}
+		        }	
 			}
 
 			if (e.getSource() == binarySave) {
 
-				bank.saveBinary("bankApplication Data (Binary)");
-				
+				 //File Chooser to open in the current directory
+		        JFileChooser fc = new JFileChooser();
+		        File currentDir = new File(System.getProperty(
+		        		"user.dir"));
+		        fc.setCurrentDirectory(currentDir);
+
+		        // display the file choose
+		        int returnVal = fc.showSaveDialog(null);
+
+		        // did the user select a file?
+		        if (returnVal == JFileChooser.APPROVE_OPTION) {
+		            String filename = fc.getSelectedFile().getName();
+
+		            //Use the provided filename to read customer data
+					try {
+						bank.saveBinary(filename);
+					} catch (IOException exception){
+						JOptionPane.showMessageDialog(null, 
+								"Unable to save file.");
+					}
+		        }
 			}
 			
 			if(e.getSource() == xmlLoad){
@@ -447,10 +527,7 @@ public class BankGUI extends JFrame {
 			//throw an error and set default date if entered date
 			//is invalid
 			catch(IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(this, "Invalid date!"
-						+ " Today's date will be used instead.");
-				Date today = Calendar.getInstance().getTime();
-				greg.setTime(today);
+				throw new IllegalArgumentException();
 			}
 			
 			//Gets the balance 
@@ -518,10 +595,7 @@ public class BankGUI extends JFrame {
 			//throw an error and set default date if entered date
 			//is invalid
 			catch(IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(this, "Invalid date!"
-						+ " Today's date will be used instead.");
-				Date today = Calendar.getInstance().getTime();
-				greg.setTime(today);
+				throw new IllegalArgumentException();
 			}
 			
 			//Gets the balance 
