@@ -415,20 +415,19 @@ public class BankGUI extends JFrame {
 	 * @throws IllegalArgumentException if incorrect user input
 	 *****************************************************************/
 	public void newChecking() throws IllegalArgumentException{
-
 		try {
 			//Gets the account number
 			int acctNum = Integer.parseInt(accNum.getText());
-
+			
 			//Gets the date opened 
 			String dateString = date.getText();
 			String [] part = dateString.split("/"); 
-
+			
+			//Declare date variables
 			int month; 
 			int day; 
 			int year; 
 			GregorianCalendar greg; 
-
 			
 			//set date variables
 			month = Integer.parseInt(part[0]);
@@ -444,6 +443,7 @@ public class BankGUI extends JFrame {
 				greg.set(year, month - 1, day);
 				greg.getTime();
 			}
+			
 			//throw an error and set default date if entered date
 			//is invalid
 			catch(IllegalArgumentException e) {
@@ -452,28 +452,32 @@ public class BankGUI extends JFrame {
 				Date today = Calendar.getInstance().getTime();
 				greg.setTime(today);
 			}
-
+			
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
-
+			
+			//Make sure balance is not negative
+			if (accBal < 0)
+				throw new IllegalArgumentException();
+			
 			//Gets the monthly fee
 			double accFee = Double.parseDouble(fee.getText());
-
+			
+			//Make sure fee is not negative
+			if (accFee < 0)
+				throw new IllegalArgumentException();
+			
 			//Creates a new account
 			CheckingAccount cnew = new CheckingAccount(acctNum, 
 					accOwn.getText(), greg, accBal, accFee);
-
+			
 			//Sends the account to the model 
 			bank.newAccount(cnew);
-
-			//Print statement used for checking
-			//System.out.println(cnew.toString());
-
+			
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Error in input!");
 		}
 	}
-
 	/******************************************************************
 	 * Checks the user's input for correct formatting and inputs and 
 	 * creates a new savings account if all user inputs are 
@@ -482,20 +486,20 @@ public class BankGUI extends JFrame {
 	 * @throws IllegalArgumentException if incorrect user input
 	 *****************************************************************/
 	public void newSavings() throws IllegalArgumentException{
-
 		try {
 			//Gets the account number
 			int acctNum = Integer.parseInt(accNum.getText());
-
+			
 			//Gets the date opened 
 			String dateString = date.getText();
 			String [] part = dateString.split("/"); 
-
+			
+			//Declare date variables
 			int month; 
 			int day; 
 			int year; 
 			GregorianCalendar greg; 
-
+			
 			//set date variables
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
@@ -510,6 +514,7 @@ public class BankGUI extends JFrame {
 				greg.set(year, month - 1, day);
 				greg.getTime();
 			}
+			
 			//throw an error and set default date if entered date
 			//is invalid
 			catch(IllegalArgumentException e) {
@@ -518,44 +523,42 @@ public class BankGUI extends JFrame {
 				Date today = Calendar.getInstance().getTime();
 				greg.setTime(today);
 			}
-
+			
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
-
+			
+			//Make sure balance is not negative
+			if (accBal < 0)
+				throw new IllegalArgumentException();
+			
 			double minBal = 1;
 			
 			//Gets the minimum balance and makes sure it's not
 			//greater than the current balance
-			try{
-				if(Double.parseDouble(minimum.getText()) <= accBal){
-					minBal = Double.parseDouble(minimum.getText());
-				}
-				else{
+			if(Double.parseDouble(minimum.getText()) <= accBal){
+				minBal = Double.parseDouble(minimum.getText());
 				
+				//Make sure minimum balance is not negative
+				if (minBal < 0)
 					throw new IllegalArgumentException();
-				
-				}
 			}
-			catch(IllegalArgumentException e){
-				
-				JOptionPane.showMessageDialog(null, "Error in input!"
-						+ " Minimum defaulted to $1.");
-				
-			}
-
+			else
+				throw new IllegalArgumentException();
+	
 			//Gets the interest rate 
 			double intRate = Double.parseDouble(interest.getText());
-
+			
+			//Make sure interest rate is not negative
+			if (intRate < 0)
+				throw new IllegalArgumentException();
+			
 			//Creates a new account
 			SavingsAccount snew = new SavingsAccount(acctNum, 
 					accOwn.getText(), greg, accBal, minBal, intRate);
-
+			
 			//Sends the account to the model 
 			bank.newAccount(snew);
-
-			//Print statement used for checking
-			//System.out.println(cnew.toString());
-
+			
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Error in input!");
 		}

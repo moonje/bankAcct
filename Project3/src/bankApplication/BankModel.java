@@ -380,14 +380,80 @@ public class BankModel extends AbstractTableModel {
 	 * 			xml file
 	 *****************************************************************/
 	public void saveXML(String filename){
+		PrintWriter out = null;
 		try{
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
+			out = new PrintWriter(new BufferedWriter(new FileWriter(
+					filename)));
 			StringBuilder sb = new StringBuilder();
 			sb.append("<?xml version=\"1.0\"?>\n");
 			sb.append("<accounts>\n");
+			for (int i = 0; i < acts.size(); i++){
+				
+				Account account = acts.get(i);
+				
+				if (account instanceof CheckingAccount){
+					
+					CheckingAccount cacct = (CheckingAccount) account;
+					sb.append("<checking>\n");
+					sb.append("<account_number>" + 
+							cacct.getAccountNumber()+
+							"</account_number>\n");
+					sb.append("<account_owner>" + 
+							cacct.getAccountOwner()+
+							"</account_owner>\n");
+					sb.append("<date_opened>" + 
+							cacct.calendarToString(cacct.
+									getDateOpened())+
+							"</date_opened>\n");
+					sb.append("<balance>" + 
+							cacct.getAccountBalance()+
+							"</balance>\n");
+					sb.append("<monthly_fee>" + 
+							cacct.getMonthlyFee()+
+							"</monthly_fee>\n");
+					sb.append("</checking>\n");
+				}
+				
+				if (account instanceof SavingsAccount){
+					
+					SavingsAccount sacct = (SavingsAccount) account;
+					sb.append("<savings>\n");
+					sb.append("<account_number>" + 
+							sacct.getAccountNumber()+
+							"</account_number>\n");
+					sb.append("<account_owner>" + 
+							sacct.getAccountOwner()+
+							"</account_owner>\n");
+					sb.append("<date_opened>" + 
+							sacct.calendarToString(sacct.
+									getDateOpened())+
+							"</date_opened>\n");
+					sb.append("<balance>" + 
+							sacct.getAccountBalance()+
+							"</balance>\n");
+					sb.append("<minimum_balance>" + 
+							sacct.getMinBalance()+
+							"</minimum_balance>\n");
+					sb.append("<interest>" + 
+							sacct.getInterestRate()+
+							"</interest>\n");
+					sb.append("</savings>\n");
+				}
+			}
+			sb.append("</accounts>\n");
+			
+			out.println(sb);
+		
 		}
-		
-		
+		catch(Exception e){ 
+			
+			e.printStackTrace();
+			
+		}
+		finally{
+			
+			out.close();
+		}	
 	}
 	
 	/******************************************************************
@@ -409,5 +475,7 @@ public class BankModel extends AbstractTableModel {
 			//NodeList actLst = doc.getElementsByTagName();
 		}
 		
+		catch(Exception e){
+		}
 	}
 }
