@@ -86,9 +86,6 @@ public class BankModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int column) {
 
-		//Making a change so it will push through. 
-		//Should be row and then column. 
-
 		switch(column){
 
 		case 0: 
@@ -107,22 +104,19 @@ public class BankModel extends AbstractTableModel {
 			
 		case 4:
 			NumberFormat f = NumberFormat.getCurrencyInstance();
-			NumberFormat n = NumberFormat.getPercentInstance();
-			f.setMinimumFractionDigits(2);
+			
 			if(acts.get(row) instanceof CheckingAccount){
 				
 				return "Monthly Fee: " + 
 						f.format(((CheckingAccount) acts.get(row)).
-						getMonthlyFee());
+								getMonthlyFee());
 				
 			}
 			else{
-				return "Interest: " + n.format(
-						(((SavingsAccount)acts.get(row)).
-						getInterestRate())/100) +
-						"  Minimum Balance: " + 
-						f.format(((SavingsAccount)acts.get(row)).
-						getMinBalance());
+				return "Interest: " + (((SavingsAccount)acts.get(row)).
+						getInterestRate()) + "%" +"  Minimum Balance: " 
+						+ f.format(((SavingsAccount)acts.get(row)).
+								getMinBalance());
 			}
 		}
 

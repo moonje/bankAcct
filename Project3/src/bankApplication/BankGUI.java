@@ -481,8 +481,18 @@ public class BankGUI extends JFrame {
 
 			//delete an account
 			if (e.getSource() == delete) {
-				int index = table.getSelectedRow();
-				bank.deleteAccount(index);
+				// Ask user if they want to delete the account
+				Object[] options = {"Yes", "No"};
+				int reply = JOptionPane.showOptionDialog(null, "Delete"
+						+ " account?", "Confirm delete",JOptionPane.
+						DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+						null, options, options[1]);
+
+				// Delete account if user selects 'yes'
+				if (reply == 0) {
+					int index = table.getSelectedRow();
+					bank.deleteAccount(index);
+				}
 			}
 		}
 	}
