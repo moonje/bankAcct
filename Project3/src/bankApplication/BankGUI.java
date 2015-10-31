@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -263,39 +264,39 @@ public class BankGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == textLoad) {
-
 				bank.loadText("bankApplication Data");
-				
+
+
 			}
 
 			if (e.getSource() == textSave) {
 
 				bank.saveText("bankApplication Data");
-				
+
 			}
 
 			if (e.getSource() == binaryLoad) {
 
 				bank.loadBinary("bankApplication Data (Binary)");
-				
+
 			}
 
 			if (e.getSource() == binarySave) {
 
 				bank.saveBinary("bankApplication Data (Binary)");
-				
+
 			}
-			
+
 			if(e.getSource() == xmlLoad){
-				
+
 				//bank.loadXML(filename);
-				
+
 			}
-			
+
 			if(e.getSource() == xmlSave){
-				
+
 				//bank.saveXML(filename);
-				
+
 			}
 
 			if (e.getSource() == quit) {
@@ -401,8 +402,18 @@ public class BankGUI extends JFrame {
 
 			//delete an account
 			if (e.getSource() == delete) {
-				int index = table.getSelectedRow();
-				bank.deleteAccount(index);
+				// Ask user if they want to delete the account
+				Object[] options = {"Yes", "No"};
+				int reply = JOptionPane.showOptionDialog(null, "Delete"
+						+ " account?", "Confirm delete",JOptionPane.
+						DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+						null, options, options[1]);
+
+				// Delete account if user selects 'yes'
+				if (reply == 0) {
+					int index = table.getSelectedRow();
+					bank.deleteAccount(index);
+				}
 			}
 		}
 	}
@@ -424,54 +435,45 @@ public class BankGUI extends JFrame {
 			String dateString = date.getText();
 			String [] part = dateString.split("/"); 
 
+			// Declare date variables
 			int month; 
 			int day; 
 			int year; 
 			GregorianCalendar greg; 
 
-			
-			//set date variables
+			// Set date variables
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			
-			//create calendar and set lenient mode
+
+			// Create calendar and set lenient mode off
 			greg = new GregorianCalendar();
 			greg.setLenient(false);
-			
-			//check if values entered are valid
-			try {
-				greg.set(year, month - 1, day);
-				greg.getTime();
-			}
-			//throw an error and set default date if entered date
-			//is invalid
-			catch(IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(this, "Invalid date!"
-						+ " Today's date will be used instead.");
-				Date today = Calendar.getInstance().getTime();
-				greg.setTime(today);
-			}
 
-			//Gets the balance 
+			// Set the date opened
+			greg.set(year, month - 1, day);
+
+			// Will throw an error if the date is invalid
+			greg.getTime();
+
+			// Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
 
-			//Gets the monthly fee
+			// Gets the monthly fee
 			double accFee = Double.parseDouble(fee.getText());
 
-			//Creates a new account
+			// Creates a new account
 			CheckingAccount cnew = new CheckingAccount(acctNum, 
 					accOwn.getText(), greg, accBal, accFee);
 
-			//Sends the account to the model 
+			// Sends the account to the model
 			bank.newAccount(cnew);
 
-			//Print statement used for checking
-			//System.out.println(cnew.toString());
-
-		} catch (Exception e){
+		} 
+		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Error in input!");
 		}
+
 	}
 
 	/******************************************************************
@@ -484,65 +486,45 @@ public class BankGUI extends JFrame {
 	public void newSavings() throws IllegalArgumentException{
 
 		try {
-			//Gets the account number
+			// Gets the account number
 			int acctNum = Integer.parseInt(accNum.getText());
 
-			//Gets the date opened 
+			// Gets the date opened 
 			String dateString = date.getText();
 			String [] part = dateString.split("/"); 
 
+			// Declare date variables
 			int month; 
 			int day; 
 			int year; 
 			GregorianCalendar greg; 
 
-			//set date variables
+			// Set date variables
 			month = Integer.parseInt(part[0]);
 			day = Integer.parseInt(part[1]); 
 			year = Integer.parseInt(part[2]);
-			
-			//create calendar and set lenient mode
+
+			// Create calendar and set lenient mode off
 			greg = new GregorianCalendar();
 			greg.setLenient(false);
-			
-			//check if values entered are valid
-			try {
-				greg.set(year, month - 1, day);
-				greg.getTime();
-			}
-			//throw an error and set default date if entered date
-			//is invalid
-			catch(IllegalArgumentException e) {
-				JOptionPane.showMessageDialog(this, "Invalid date!"
-						+ " Today's date will be used instead.");
-				Date today = Calendar.getInstance().getTime();
-				greg.setTime(today);
-			}
+
+			// Set the date opened
+			greg.set(year, month - 1, day);
+
+			// Will throw an error if the date is invalid
+			greg.getTime();
 
 			//Gets the balance 
 			double accBal = Double.parseDouble(accBalance.getText());
 
+			// Gets the minimum balance and makes sure it's not
+			// greater than the current balance.
 			double minBal = 1;
+			if (Double.parseDouble(minimum.getText()) <= accBal)
+				minBal = Double.parseDouble(minimum.getText());
+			else
+				throw new IllegalArgumentException();
 			
-			//Gets the minimum balance and makes sure it's not
-			//greater than the current balance
-			try{
-				if(Double.parseDouble(minimum.getText()) <= accBal){
-					minBal = Double.parseDouble(minimum.getText());
-				}
-				else{
-				
-					throw new IllegalArgumentException();
-				
-				}
-			}
-			catch(IllegalArgumentException e){
-				
-				JOptionPane.showMessageDialog(null, "Error in input!"
-						+ " Minimum defaulted to $1.");
-				
-			}
-
 			//Gets the interest rate 
 			double intRate = Double.parseDouble(interest.getText());
 
@@ -553,8 +535,6 @@ public class BankGUI extends JFrame {
 			//Sends the account to the model 
 			bank.newAccount(snew);
 
-			//Print statement used for checking
-			//System.out.println(cnew.toString());
 
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Error in input!");

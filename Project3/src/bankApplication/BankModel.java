@@ -104,25 +104,19 @@ public class BankModel extends AbstractTableModel {
 		case 3:
 			NumberFormat fmt = NumberFormat.getCurrencyInstance();
 			return fmt.format(acts.get(row).getAccountBalance());
-			
+
 		case 4:
 			NumberFormat f = NumberFormat.getCurrencyInstance();
-			NumberFormat n = NumberFormat.getPercentInstance();
-			f.setMinimumFractionDigits(2);
 			if(acts.get(row) instanceof CheckingAccount){
-				
 				return "Monthly Fee: " + 
 						f.format(((CheckingAccount) acts.get(row)).
-						getMonthlyFee());
-				
+								getMonthlyFee());
 			}
 			else{
-				return "Interest: " + n.format(
-						(((SavingsAccount)acts.get(row)).
-						getInterestRate())/100) +
-						"  Minimum Balance: " + 
-						f.format(((SavingsAccount)acts.get(row)).
-						getMinBalance());
+				return "Interest: " + (((SavingsAccount)acts.get(row)).
+						getInterestRate()) + "%" +"  Minimum Balance: " 
+						+ f.format(((SavingsAccount)acts.get(row)).
+								getMinBalance());
 			}
 		}
 
@@ -160,7 +154,7 @@ public class BankModel extends AbstractTableModel {
 			fireTableRowsUpdated(0, acts.size()-1);
 		}
 	}
-	
+
 	/******************************************************************
 	 * Sorts the accounts in alphabetical order by the account owner's
 	 * name.
@@ -171,7 +165,7 @@ public class BankModel extends AbstractTableModel {
 			fireTableRowsUpdated(0, acts.size()-1);
 		}
 	}
-	
+
 	/******************************************************************
 	 * Sorts the accounts by the date the account was opened.
 	 *****************************************************************/
@@ -189,7 +183,7 @@ public class BankModel extends AbstractTableModel {
 	 * 			binary file
 	 *****************************************************************/
 	public void saveBinary(String filename){
-		
+
 		try{
 			FileOutputStream fo = new FileOutputStream(filename);
 			ObjectOutputStream os = new ObjectOutputStream(fo);
@@ -197,12 +191,12 @@ public class BankModel extends AbstractTableModel {
 			os.close();
 		}
 		catch(IOException e){
-			
+
 			e.printStackTrace();
-			
+
 		}
 	}
-	
+
 	/******************************************************************
 	 * Loads the array list of accounts from a serialized binary file.
 	 * 
@@ -210,7 +204,7 @@ public class BankModel extends AbstractTableModel {
 	 * 			binary file
 	 *****************************************************************/
 	public void loadBinary(String filename){
-		
+
 		try{
 			FileInputStream fi = new FileInputStream(filename);
 			ObjectInputStream is = new ObjectInputStream(fi);
@@ -219,16 +213,16 @@ public class BankModel extends AbstractTableModel {
 			is.close();
 		}
 		catch(IOException e){
-			
+
 			e.printStackTrace();
-			
+
 		} catch (ClassNotFoundException e) {
-			
+
 			e.printStackTrace();
 		}
-			
+
 	}
-	
+
 	/******************************************************************
 	 * Saves the array list of accounts to a text file.
 	 * 
@@ -236,23 +230,23 @@ public class BankModel extends AbstractTableModel {
 	 * 			text file
 	 *****************************************************************/
 	public void saveText(String filename){
-		
+
 		PrintWriter out = null;
 		try {
-			
+
 			//open and read file
 			out = new PrintWriter(new BufferedWriter(new FileWriter
 					(filename)));
-			
+
 			//print to file
 			for (int i = 0; i < acts.size(); i++){
-				
+
 				Account account = acts.get(i);
-				
+
 				if (account instanceof CheckingAccount){
-					
+
 					CheckingAccount cacct = (CheckingAccount) account; 
-					
+
 					out.print("Checking," + 
 							cacct.getAccountNumber() + "," + 
 							cacct.getAccountOwner() + "," + 
@@ -260,11 +254,11 @@ public class BankModel extends AbstractTableModel {
 									getDateOpened()) + 
 							","  + cacct.getAccountBalance() + "," +
 							cacct.getMonthlyFee() + "\n");
-					
+
 				} else if (account instanceof SavingsAccount){
-					
+
 					SavingsAccount sacct = (SavingsAccount) account; 
-					
+
 					out.print("Savings," + 
 							sacct.getAccountNumber() + "," + 
 							sacct.getAccountOwner() + "," + 
@@ -274,18 +268,18 @@ public class BankModel extends AbstractTableModel {
 							sacct.getMinBalance() + "," + 
 							sacct.getInterestRate() + "\n");
 				}
-				
+
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
-			
+
 		} finally {
 			//close file
 			out.close();
 		}	
 	}
-	
+
 	/******************************************************************
 	 * Loads the array list of accounts from a text file.
 	 * 
@@ -293,69 +287,69 @@ public class BankModel extends AbstractTableModel {
 	 * 			text file
 	 *****************************************************************/
 	public void loadText(String filename){
-		
+
 		try {
 			// open the data file
 			Scanner fileReader = new Scanner(new File(filename));
-			
+
 			acts.clear();
 
 			//While there is a next line
-            while (fileReader.hasNextLine()) {
-            	
-            	String text = fileReader.nextLine();
-            	
-    			String [] part = text.split(",");
-    			
-    			if (part[0].equals("Checking")){
-    				
-    				int accountNumber = Integer.parseInt(part[1]);
-    				
-    				//part[2] is the account owner 
-    				
-    				String [] date = part[3].split("/");
-    				int month = Integer.parseInt(date[0]);
-    				int day = Integer.parseInt(date[1]);
-    				int year = Integer.parseInt(date[2]);
-    				GregorianCalendar greg = new GregorianCalendar(year, 
-    						month - 1, day);
-    				
-    				double balance = Double.parseDouble(part[4]);
-    				
-    				double fee = Double.parseDouble(part[5]);
-    				
-    				CheckingAccount check = new CheckingAccount(
-    						accountNumber, part[2], greg, balance, fee);
-    						
-    				newAccount(check);
-    				
-    			} else if (part[0].equals("Savings")){
-    				
-  				int accountNumber = Integer.parseInt(part[1]);
-    				
-    				//part[2] is the account owner 
-    				
-    				String [] date = part[3].split("/");
-    				int month = Integer.parseInt(date[0]);
-    				int day = Integer.parseInt(date[1]);
-    				int year = Integer.parseInt(date[2]);
-    				GregorianCalendar greg = new GregorianCalendar(year, 
-    						month - 1, day);
-    				
-    				double balance = Double.parseDouble(part[4]);
-    				
-    				double minBal = Double.parseDouble(part[5]);
-    				
-    				double interest = Double.parseDouble(part[6]);
-    				
-    				SavingsAccount save = new SavingsAccount(
-    						accountNumber, part[2], greg, balance,
-    						minBal, interest);
-    				
-    				newAccount(save);
-    			}
-            	
-            }
+			while (fileReader.hasNextLine()) {
+
+				String text = fileReader.nextLine();
+
+				String [] part = text.split(",");
+
+				if (part[0].equals("Checking")){
+
+					int accountNumber = Integer.parseInt(part[1]);
+
+					//part[2] is the account owner 
+
+					String [] date = part[3].split("/");
+					int month = Integer.parseInt(date[0]);
+					int day = Integer.parseInt(date[1]);
+					int year = Integer.parseInt(date[2]);
+					GregorianCalendar greg = new GregorianCalendar(year, 
+							month - 1, day);
+
+					double balance = Double.parseDouble(part[4]);
+
+					double fee = Double.parseDouble(part[5]);
+
+					CheckingAccount check = new CheckingAccount(
+							accountNumber, part[2], greg, balance, fee);
+
+					newAccount(check);
+
+				} else if (part[0].equals("Savings")){
+
+					int accountNumber = Integer.parseInt(part[1]);
+
+					//part[2] is the account owner 
+
+					String [] date = part[3].split("/");
+					int month = Integer.parseInt(date[0]);
+					int day = Integer.parseInt(date[1]);
+					int year = Integer.parseInt(date[2]);
+					GregorianCalendar greg = new GregorianCalendar(year, 
+							month - 1, day);
+
+					double balance = Double.parseDouble(part[4]);
+
+					double minBal = Double.parseDouble(part[5]);
+
+					double interest = Double.parseDouble(part[6]);
+
+					SavingsAccount save = new SavingsAccount(
+							accountNumber, part[2], greg, balance,
+							minBal, interest);
+
+					newAccount(save);
+				}
+
+			}
 
 			//close file
 			fileReader.close();
@@ -364,40 +358,45 @@ public class BankModel extends AbstractTableModel {
 
 		// could not find file
 		catch (FileNotFoundException error) {
-			System.out.println("File not found ");
+			//System.out.println("File not found");
+			JOptionPane.showMessageDialog(null,"File not found.",
+					"Error",JOptionPane.ERROR_MESSAGE);
 		}
 
 		// problem reading the file
 		catch (IOException error) {
-			System.out.println("Oops!  Something went wrong.");
+			//System.out.println("Oops! Something went wrong");
+			JOptionPane.showMessageDialog(null,"Oops! Something went "
+					+ "wrong.","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+
+
 	/******************************************************************
 	 * Saves the array list of accounts to an XML file.
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			xml file
 	 *****************************************************************/
-	public void saveXML(String filename){
+	/*	public void saveXML(String filename){
 		try{
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
 			StringBuilder sb = new StringBuilder();
 			sb.append("<?xml version=\"1.0\"?>\n");
 			sb.append("<accounts>\n");
 		}
-		
-		
+
+
 	}
-	
+	 */
 	/******************************************************************
 	 * Loads the array list of accounts from an xml file.
 	 * 
 	 * @param filename a String containing the file name of the 
 	 * 			xml file
 	 *****************************************************************/
-	public void loadXML(String filename){
-		
+	/*	public void loadXML(String filename){
+
 		try{
 			acts.clear();
 			File file = new File(filename);
@@ -405,9 +404,9 @@ public class BankModel extends AbstractTableModel {
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
 			doc.getDocumentElement().normalize();
-			
+
 			//NodeList actLst = doc.getElementsByTagName();
 		}
-		
-	}
+
+	} */
 }
